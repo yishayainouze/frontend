@@ -1,4 +1,5 @@
 import "./App.css";
+import {CssBaseline} from "@mui/material"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
@@ -13,6 +14,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
+      <CssBaseline/>
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home/>} />
