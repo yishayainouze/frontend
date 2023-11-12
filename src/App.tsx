@@ -1,24 +1,32 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from "./pages/Home/Home";
-import Sign_in from "./pages/sign-in/sign-in";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Product from "./pages/Product";
+import Products from "./pages/Products";
+import Login from "./pages/Login";
+import Sign from "./pages/Sign";
+import Cart from "./pages/Cart";
+import Compare from "./pages/Compare";
+import Layout from "./pages/Layout";
 
 function App() {
-  
   return (
-    <>
-
-        <Router>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/Sign_in" element={<Sign_in />} />
-                {/* <Route path="/Delete" element={<Delete />} /> */}
-            </Routes>
-        </Router>
-
-    </>
-
-)
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home/>} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/product" element={<Product />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/sign-up" element={<Sign />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/compare" element={<Compare />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 
