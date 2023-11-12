@@ -1,4 +1,5 @@
 import {  useNavigate } from "react-router-dom"
+import Categories from "../components/Categories"
 
 const Home = () => {
 
@@ -6,7 +7,7 @@ const Home = () => {
 
   return (
     <div>
-      Home
+      <Categories/>
       <button onClick={()=> navigate("/products")}>products</button>
     </div>
   )

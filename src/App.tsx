@@ -9,6 +9,7 @@ import Sign from "./pages/Sign";
 import Cart from "./pages/Cart";
 import Compare from "./pages/Compare";
 import Layout from "./pages/Layout";
+import ProductCard from "./components/ProductTemp";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
             <Route path="/sign-up" element={<Sign />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/compare" element={<Compare />} />
+            <Route path="/pt" element={<ProductCard />} />
+
           </Route>
         </Routes>
       </BrowserRouter>
