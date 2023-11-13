@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import ImgMediaCard from "../components/ProductTemp2"
-import ProductCard from "../components/ProductTemp"
+// import ImgMediaCard from "../components/ProductTemp2"
+import ProductTemp from "../components/ProductTemp"
 
 const Product = () => {
     const navigate = useNavigate()
@@ -10,7 +10,7 @@ const Product = () => {
       <button onClick={()=> navigate("/cart")}>cart</button>
       <button onClick={()=> navigate(-1)}>compare</button>
       <div style={{height: "80vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-        <ProductCard/>
+        <ProductTemp/>
       </div>
       <button onClick={()=> navigate("cart")}>cart</button>
       <button onClick={()=> navigate(-1)}>compare</button>
