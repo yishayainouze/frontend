@@ -27,6 +27,7 @@ const initialState: GlobalState = {
   userId: 1,
   products: [
     {
+
       _id: {
         $oid: "65508a253df12112f47734e2",
       },
@@ -425,22 +426,15 @@ const initialState: GlobalState = {
         resolution: "4K UHD",
       },
     },
+
   ],
-
-import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = {
-  mode: "dark",
-  userId: 1
 };
 
 export const globalSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
-    setMode(state, action: PayloadAction<string>) {
-
-    setMode(state, action) {
+    setMode: (state, action: PayloadAction<string>) => {
       state.mode = action.payload;
     },
   },

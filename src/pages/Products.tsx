@@ -11,6 +11,8 @@ const Products = () => {
     <div>
         Products
         <button onClick={()=> navigate("/product")}>product</button>
+
+
         <Categories/>
     </div>
   );

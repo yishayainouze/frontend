@@ -76,18 +76,18 @@ const Home = () => {
 
 export default Home;
 
-import {  useNavigate } from "react-router-dom"
+// import {  useNavigate } from "react-router-dom"
 
-const Home = () => {
+// const Home = () => {
 
-    const navigate = useNavigate()
+//     const navigate = useNavigate()
 
-  return (
-    <div>
-      Home
-      <button onClick={()=> navigate("/products")}>products</button>
-    </div>
-  )
-}
+//   return (
+//     <div>
+//       Home
+//       <button onClick={()=> navigate("/products")}>products</button>
+//     </div>
+//   )
+// }
 
-export default Home
+// export default Home
