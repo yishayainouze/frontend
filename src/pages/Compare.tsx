@@ -1,17 +1,20 @@
-import { useNavigate } from "react-router-dom"
-import Categories from "../components/Categories"
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { GlobalState } from "../state";
 
 const Compare = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
+  const data = useSelector(
+    (state: { global: GlobalState }) => state.global.products
+  );
+  console.log(data);
+
   return (
     <div>
-        Compare
-        <button onClick={()=> navigate("/cart")}>carts</button>
-        <Categories/>
-
-
+      Compare
+      <button onClick={() => navigate("/cart")}>carts</button>
     </div>
-  )
-}
+  );
+};
 
-export default Compare
+export default Compare;
