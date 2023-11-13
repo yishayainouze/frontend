@@ -8,9 +8,9 @@ const Products = () => {
     <div>
         Products
         <button onClick={()=> navigate("/product")}>product</button>
-        <Categories/>
-        <button onClick={()=> navigate("/product")}>products</button>
         <button onClick={()=> navigate("/compare")}>compare</button>
+
+        <Categories/>
     </div>
   )
 }
