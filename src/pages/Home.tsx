@@ -7,8 +7,8 @@ const Home = () => {
 
   return (
     <div>
-      <Categories/>
       <button onClick={()=> navigate("/products")}>products</button>
+      <Categories/>
     </div>
   )
 }
