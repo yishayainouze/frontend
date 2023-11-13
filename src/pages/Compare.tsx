@@ -9,6 +9,7 @@ const Compare = () => {
         <button onClick={()=> navigate("/cart")}>carts</button>
         <Categories/>
 
+
     </div>
   )
 }

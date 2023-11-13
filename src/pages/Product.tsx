@@ -12,6 +12,8 @@ const Product = () => {
       <div style={{height: "80vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
         <ProductCard/>
       </div>
+      <button onClick={()=> navigate("cart")}>cart</button>
+      <button onClick={()=> navigate(-1)}>compare</button>
     </div>
   )
 }

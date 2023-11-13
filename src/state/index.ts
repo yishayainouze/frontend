@@ -154,6 +154,12 @@ const initialState: GlobalState = {
       ],
     },
   ],
+
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  mode: "dark",
+  userId: 1
 };
 
 export const globalSlice = createSlice({
@@ -161,6 +167,8 @@ export const globalSlice = createSlice({
   initialState,
   reducers: {
     setMode(state, action: PayloadAction<string>) {
+
+    setMode(state, action) {
       state.mode = action.payload;
     },
   },
@@ -168,4 +176,3 @@ export const globalSlice = createSlice({
 
 export const { setMode } = globalSlice.actions;
 export default globalSlice.reducer;
-

@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
+import { Outlet } from "react-router-dom"
 
 const Layout = () => {
   return (
@@ -11,3 +12,11 @@ const Layout = () => {
 };
 
 export default Layout;
+
+        Layout
+        <Outlet/>
+    </div>
+  )
+}
+
+export default Layout
