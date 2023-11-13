@@ -8,15 +8,15 @@ const Cart = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <header>
+      <div>
 
         <SignUpModal />
         <Login />
-      </header>
-      <body>
+      </div>
+      <div>
         Cart
         <button onClick={() => navigate("/")}>Categories</button>
-      </body>
+      </div>
 
     </div>
   );
