@@ -26,22 +26,13 @@ const style = {
   p: 4,
 };
 
-// Example User instance
-const exampleUser = {
-  "user_id": 111111,
-  "username": "user1",
-  "password": "password1",
-  "name": "John Doe",
-  "email": "jo1hnd1oe2@example.com",
-  "address": "123 Maple Street",
-  "cart": [],
-};
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState(null);
+  const [formDataUser, setformDataUser] = React.useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -49,18 +40,9 @@ const Login = () => {
   const onSubmit = async (data: any) => {
     console.log(data);
     setFormData(data);
-    // const {name,password} = data
     try {
       // Send a request to the server
-      const response = await axios.post(
-        "http://localhost:8080/api/users/login",
-        data
-      );
-
-      // Print the server response
-      console.log(response.data.name);
-
-      // You can add to state or perform additional actions as needed
+      const response = 
     } catch (error) {
       console.error("Error sending data to server:", error);
     }
@@ -93,6 +75,7 @@ const Login = () => {
                   </Avatar>
                   <Typography component="h1" variant="h5">
                     login
+                    
                   </Typography>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <Box component="div"  sx={{ mt: 3 }}>
@@ -120,6 +103,7 @@ const Login = () => {
                         </Grid>
                       </Grid>
                       <Button
+                      
                         type="submit"
                         fullWidth
                         variant="contained"
@@ -129,6 +113,8 @@ const Login = () => {
                       </Button>
                       <Grid container justifyContent="flex-end">
                         <Grid item>
+                          {/* {formDataUser ? <h2> hi {formDataUser}</h2> : '' } */}
+
                           <Button
                             type="button"
                             fullWidth
@@ -136,7 +122,7 @@ const Login = () => {
                             sx={{ mt: 3, mb: 2 }}
                             onClick={() => {
                               onSubmit(formData);
-                              navigate("/");
+                              navigate("/");  
                             }}
                           >
                             Home

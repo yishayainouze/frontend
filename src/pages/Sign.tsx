@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -11,36 +11,32 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-export default function SignUpModal() {
+const SignUpModal = () => {
   const navigate = useNavigate();
-
   const { register, handleSubmit } = useForm();
-  const [open, setOpen] = React.useState(false);
-  const [formData, setFormData] = React.useState(null);
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const onSubmit = (data:any) => {
+  const onSubmit = async (data: any) => {
     console.log(data);
     setFormData(data);
-    console.log(formData);
-    
 
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/users/register",
+        data
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error sending data to server:", error);
+    }
   };
 
   return (
@@ -52,7 +48,19 @@ export default function SignUpModal() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
           <ThemeProvider theme={createTheme()}>
             <Container component="main" maxWidth="xs">
               <CssBaseline />
@@ -71,18 +79,26 @@ export default function SignUpModal() {
                   Sign up
                 </Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <Box component="form"  sx={{ mt: 3 }}>
+                  <Box component="div" sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <TextField
                           autoComplete="given-name"
-                          // name="userName"
                           required
                           fullWidth
                           id="userName"
                           label="User Name"
                           autoFocus
                           {...register('userName')}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          id="name"
+                          label="Name"
+                          {...register('name')}
                         />
                       </Grid>
 
@@ -92,7 +108,6 @@ export default function SignUpModal() {
                           fullWidth
                           id="email"
                           label="Email Address"
-                          // name="email"
                           autoComplete="email"
                           {...register('email')}
                         />
@@ -101,7 +116,6 @@ export default function SignUpModal() {
                         <TextField
                           required
                           fullWidth
-                          // name="password"
                           label="Password"
                           type="password"
                           id="password"
@@ -109,29 +123,49 @@ export default function SignUpModal() {
                           {...register('password')}
                         />
                       </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          id="address"
+                          label="Address"
+                          {...register('address')}
+                        />
+                      </Grid>
+                      {/* <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          id="cart"
+                          label="Cart"
+                          {...register('cart')}
+                        />
+                      </Grid> */}
                     </Grid>
-                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
                       Sign Up
                     </Button>
                     <Grid container justifyContent="flex-end">
                       <Grid item>
-                        {/* <Link href="/Login" variant="body2">
-                          Already have an account? Sign in
-                        </Link> */}
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} 
-                        onClick={() => navigate("/")}>Home
-                   </Button>
-
+                        
                       </Grid>
                     </Grid>
                   </Box>
                 </form>
+                {/* Display form data */}
+                
               </Box>
             </Container>
           </ThemeProvider>
         </Box>
       </Modal>
-    
     </div>
   );
-}
+};
+
+export default SignUpModal;
