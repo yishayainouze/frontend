@@ -61,7 +61,7 @@ const SignUpModal = () => {
 
   return (
     <div>
-      <Button onClick={handleOpen} style={{color:"white"}}>Sign Up</Button>
+      <Button onClick={handleOpen} style={{ color: "white" }}>Sign Up</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -117,10 +117,10 @@ const SignUpModal = () => {
                         autoComplete="given-name"
                         required
                         fullWidth
-                        id="userName"
+                        id="username"
                         label="User Name"
                         autoFocus
-                        {...register('userName')}
+                        {...register('username')} // שימוש ב'username' כאן
                       />
                     </Grid>
                     <Grid item xs={12}>
