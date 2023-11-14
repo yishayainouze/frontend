@@ -169,7 +169,7 @@ export default function Header() {
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             E-COMMERCE ICIY
-            <h3>{storedUserData }</h3>
+            <h3>{storedUserData ? JSON.parse(storedUserData).name : 'Guest'}</h3>
           </Typography>
           <Search>
             <SearchIconWrapper>
