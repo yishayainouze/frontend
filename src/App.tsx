@@ -10,7 +10,6 @@ import Sign from "./pages/Sign";
 import Cart from "./pages/Cart";
 import Compare from "./pages/Compare";
 import Layout from "./pages/Layout";
-import ProductCard from "./components/ProductTemp";
 import { useSelector } from "react-redux";
 
 function App() {
