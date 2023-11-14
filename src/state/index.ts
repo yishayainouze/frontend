@@ -20,6 +20,8 @@ export interface GlobalState {
   mode: string;
   userId: number;
   products: Product[];
+  category: string,
+  productId: string
 }
 
 const initialState: GlobalState = {
@@ -428,6 +430,8 @@ const initialState: GlobalState = {
     },
 
   ],
+  category: "",
+  productId: ""
 };
 
 export const globalSlice = createSlice({
@@ -437,8 +441,14 @@ export const globalSlice = createSlice({
     setMode: (state, action: PayloadAction<string>) => {
       state.mode = action.payload;
     },
+    setCategory: (state, action: PayloadAction<string>) => {
+      state.category = action.payload;
+    },
+    setProductId: (state, action: PayloadAction<string>) => {
+      state.productId = action.payload;
+    },
   },
 });
 
-export const { setMode } = globalSlice.actions;
+export const { setMode, setCategory, setProductId } = globalSlice.actions;
 export default globalSlice.reducer;
