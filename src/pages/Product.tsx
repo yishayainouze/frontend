@@ -60,7 +60,8 @@ export default function Product() {
     <ThemeProvider theme={defaultTheme}>
       <button onClick={() => navigate("/cart")}>cart</button>
       <button onClick={() => navigate(-1)}>compare</button>
-      { product.commonAttributes &&
+      
+      { product && product.commonAttributes &&
         <Grid container component="main" sx={{ height: "100vh" }}>
           <CssBaseline />
           <Grid
