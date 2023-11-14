@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { Category } from "./interface";
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:9000/" }),
@@ -53,7 +54,7 @@ export const api = createApi({
       }),
       providesTags: ["Users"],
     }),
-    getCategories: build.query({
+    getCategories: build.query<Category[], void>({
       query: () => "api/categories",
       providesTags: ["Categories"],
     }),
@@ -62,13 +63,13 @@ export const api = createApi({
       providesTags: ["Categories"],
     }),
     updateCategory: build.query({
-        query: (arg: any) => ({
-          url: `api/categories/${arg.id}`,
-          method: "PUT",
-          body: arg.category,
-        }),
-        providesTags: ["Categories"],
+      query: (arg: any) => ({
+        url: `api/categories/${arg.id}`,
+        method: "PUT",
+        body: arg.category,
       }),
+      providesTags: ["Categories"],
+    }),
   }),
 });
 
@@ -83,5 +84,5 @@ export const {
   useLoginQuery,
   useGetCategoriesQuery,
   useGetCategoryQuery,
-  useUpdateCategoryQuery
+  useUpdateCategoryQuery,
 } = api;
