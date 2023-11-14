@@ -17,6 +17,10 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Login from '../pages/Login';
 import SignUpModal from '../pages/Sign';
+import HomeIcon from '@mui/icons-material/Home';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { useNavigate } from 'react-router-dom';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
