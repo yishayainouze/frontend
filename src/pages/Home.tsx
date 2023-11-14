@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import state, { GlobalState, setCategory } from "../state";
+import  { GlobalState, setCategory } from "../state";
 import {
   Box,
   Container,
   Typography,
   Grid,
-  Card,
-  CardMedia,
 } from "@mui/material";
 import { useGetCategoriesQuery } from "../state/api";
 import Box2 from "@mui/joy/Box";
