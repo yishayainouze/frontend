@@ -13,6 +13,7 @@ import Container from "@mui/material/Container";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
+import Popover from "@mui/material/Popover";
 
 const style = {
   position: "absolute" as "absolute",
@@ -26,27 +27,48 @@ const style = {
   p: 4,
 };
 
-
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState(null);
-  const [formDataUser, setformDataUser] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
   const onSubmit = async (data: any) => {
     console.log(data);
     setFormData(data);
+
     try {
-      // Send a request to the server
-      const response = 
+      const response = await axios.post(
+        "http://localhost:8080/api/users/login",
+        data
+      );
+
+      if (response.data.error) {
+        // Open the popover with the error message
+        setAnchorEl(document.body);
+      } else {
+        // Close the popover
+        setAnchorEl(null);
+        console.log(response.data.name);
+        navigate("/");
+      }
     } catch (error) {
       console.error("Error sending data to server:", error);
+      // Open the popover with the error message
+      setAnchorEl(document.body);
     }
   };
+
+  const openPopover = Boolean(anchorEl);
+  const id = openPopover ? "simple-popover" : undefined;
 
   return (
     <div>
@@ -75,10 +97,9 @@ const Login = () => {
                   </Avatar>
                   <Typography component="h1" variant="h5">
                     login
-                    
                   </Typography>
                   <form onSubmit={handleSubmit(onSubmit)}>
-                    <Box component="div"  sx={{ mt: 3 }}>
+                    <Box component="div" sx={{ mt: 3 }}>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <TextField
@@ -87,6 +108,7 @@ const Login = () => {
                             id="email"
                             label="Email Address"
                             autoComplete="email"
+                            type="email"
                             {...register("email")}
                           />
                         </Grid>
@@ -103,7 +125,6 @@ const Login = () => {
                         </Grid>
                       </Grid>
                       <Button
-                      
                         type="submit"
                         fullWidth
                         variant="contained"
@@ -113,8 +134,6 @@ const Login = () => {
                       </Button>
                       <Grid container justifyContent="flex-end">
                         <Grid item>
-                          {/* {formDataUser ? <h2> hi {formDataUser}</h2> : '' } */}
-
                           <Button
                             type="button"
                             fullWidth
@@ -122,7 +141,7 @@ const Login = () => {
                             sx={{ mt: 3, mb: 2 }}
                             onClick={() => {
                               onSubmit(formData);
-                              navigate("/");  
+                              navigate("/");
                             }}
                           >
                             Home
@@ -137,6 +156,23 @@ const Login = () => {
           </Box>
         </Modal>
       </div>
+
+      <Popover
+        id={id}
+        open={openPopover}
+        anchorEl={anchorEl}
+        onClose={handlePopoverClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Typography sx={{ p: 2 }}>Invalid email or password</Typography>
+      </Popover>
     </div>
   );
 };
