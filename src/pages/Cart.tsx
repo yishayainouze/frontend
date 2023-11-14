@@ -13,10 +13,8 @@ const Cart = () => {
         <SignUpModal />
         <Login />
       </header>
-      <body>
         Cart
         <button onClick={() => navigate("/")}>Categories</button>
-      </body>
 
     </div>
   );
