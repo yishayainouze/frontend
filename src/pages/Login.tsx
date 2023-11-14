@@ -49,16 +49,16 @@ const Login = () => {
   const onSubmit = async (data: any) => {
     console.log(data);
     setFormData(data);
-    console.log(formData);
+    // const {name,password} = data
     try {
       // Send a request to the server
       const response = await axios.post(
-        "https://localhost:8080/api/users",
+        "http://localhost:8080/api/users/login",
         data
       );
 
       // Print the server response
-      console.log(response.data);
+      console.log(response.data.name);
 
       // You can add to state or perform additional actions as needed
     } catch (error) {
@@ -92,7 +92,7 @@ const Login = () => {
                     <LockOutlinedIcon />
                   </Avatar>
                   <Typography component="h1" variant="h5">
-                    Sign in
+                    login
                   </Typography>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <Box component="div"  sx={{ mt: 3 }}>
@@ -125,7 +125,7 @@ const Login = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                       >
-                        Sign In
+                        login
                       </Button>
                       <Grid container justifyContent="flex-end">
                         <Grid item>
