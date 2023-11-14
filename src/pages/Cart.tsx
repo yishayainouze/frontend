@@ -10,8 +10,6 @@ const Cart = () => {
     <div>
       <div>
 
-        <SignUpModal />
-        <Login />
       </div>
       <div>
         Cart

@@ -73,7 +73,7 @@ const Login = () => {
   return (
     <div>
       <div>
-        <Button onClick={handleOpen}>Login</Button>
+        <Button onClick={handleOpen} style={{color:"white"}}>Login</Button>
         <Modal
           open={open}
           onClose={handleClose}
