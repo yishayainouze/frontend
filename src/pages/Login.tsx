@@ -57,7 +57,7 @@ const Login = () => {
       } else {
         // Close the popover
         setAnchorEl(null);
-        console.log(response.data.name);
+        console.log("res: ",response.data.user);
         navigate("/");
       }
     } catch (error) {
