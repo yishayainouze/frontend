@@ -66,6 +66,22 @@ export default function Header() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const storedUserData = localStorage.getItem('userData');
+
+  // Check if there's any stored data
+  if (storedUserData) {
+    // Parse the stored JSON data
+    const userData = JSON.parse(storedUserData);
+  const{name} = userData
+    // Now you can use the user data as needed
+    console.log('User data from localStorage:', userData);
+  } else {
+    // Handle the case when there's no user data in localStorage
+    console.log('No user data found in localStorage');
+  }
+
+
+
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -107,6 +123,7 @@ export default function Header() {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
+    
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
@@ -149,6 +166,7 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+
           <IconButton
             size="large"
             edge="start"
@@ -165,6 +183,8 @@ export default function Header() {
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             E-COMMERCE ICIY
+            <h3>{storedUserData }</h3>
+
           </Typography>
           <Search>
             <SearchIconWrapper>

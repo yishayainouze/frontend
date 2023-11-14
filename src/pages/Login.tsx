@@ -44,20 +44,24 @@ const Login = () => {
   const onSubmit = async (data: any) => {
     console.log(data);
     setFormData(data);
-
+  
     try {
       const response = await axios.post(
         "http://localhost:8080/api/users/login",
         data
       );
-
+  
       if (response.data.error) {
         // Open the popover with the error message
         setAnchorEl(document.body);
       } else {
         // Close the popover
         setAnchorEl(null);
-        console.log("res: ",response.data.user);
+  
+        // Save user data in local storage
+        localStorage.setItem('userData', JSON.stringify(response.data.user));
+  
+        console.log("User data saved in localStorage:", response.data.user);
         navigate("/");
       }
     } catch (error) {
@@ -66,6 +70,7 @@ const Login = () => {
       setAnchorEl(document.body);
     }
   };
+  
 
   const openPopover = Boolean(anchorEl);
   const id = openPopover ? "simple-popover" : undefined;
