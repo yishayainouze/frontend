@@ -10,7 +10,6 @@ import Sign from "./pages/Sign";
 import Cart from "./pages/Cart";
 import Compare from "./pages/Compare";
 import Layout from "./pages/Layout";
-import ProductCard from "./components/ProductTemp";
 import { useSelector } from "react-redux";
 
 function App() {
@@ -31,7 +30,6 @@ function App() {
             <Route path="/Sign" element={<Sign />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/compare" element={<Compare />} />
-            <Route path="/pt" element={<ProductCard />} />
           </Route>
         </Routes>
       </BrowserRouter>
