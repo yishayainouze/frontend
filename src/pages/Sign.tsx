@@ -13,12 +13,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Popover from "@mui/material/Popover";
 
 const SignUpModal = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState(null);
+  const [messageAnchorEl, setMessageAnchorEl] = useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -52,16 +54,22 @@ const SignUpModal = () => {
         "http://localhost:8080/api/users/register",
         dataToServerAddUser
       );
-
+      setMessageAnchorEl(document.body as any);
       console.log(response.data);
     } catch (error) {
       console.error("Error sending data to server:", error);
     }
   };
 
+  const handleCloseMessage = () => {
+    setMessageAnchorEl(null);
+  };
+  
+  const openMessagePopover = Boolean(messageAnchorEl);
+  const messageId = openMessagePopover ? 'simple-popover' : undefined;
   return (
     <div>
-      <Button onClick={handleOpen} style={{color:"white"}}>Sign Up</Button>
+      <Button onClick={handleOpen} style={{ color: "white" }}>Sign Up</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -117,10 +125,10 @@ const SignUpModal = () => {
                         autoComplete="given-name"
                         required
                         fullWidth
-                        id="userName"
+                        id="username"
                         label="User Name"
                         autoFocus
-                        {...register('userName')}
+                        {...register('username')} // שימוש ב'username' כאן
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -193,6 +201,22 @@ const SignUpModal = () => {
           </ThemeProvider>
         </Box>
       </Modal>
+      <Popover
+        id={messageId}
+        open={openMessagePopover}
+        anchorEl={messageAnchorEl}
+        onClose={handleCloseMessage}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Typography sx={{ p: 2 }}>Success to Register</Typography>
+      </Popover>
     </div>
   );
 };
