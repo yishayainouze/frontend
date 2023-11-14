@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Category } from "./interface";
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:9000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://server-tpja.onrender.com/" }),
   reducerPath: "adminApi",
   tagTypes: ["Products", "Users", "Categories"],
   endpoints: (build) => ({
