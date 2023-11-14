@@ -177,11 +177,8 @@ export default function Header() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            
-
               <SignUpModal />
               <Login />
-            
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <ShoppingCartIcon />
