@@ -8,16 +8,19 @@ const Cart = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <header>
+      <div>
 
         <SignUpModal />
         <Login />
-      </header>
+      </div>
+      <div>
         Cart
         <button onClick={() => navigate("/")}>Categories</button>
+      </div>
 
     </div>
   );
 };
 
 export default Cart;
+
