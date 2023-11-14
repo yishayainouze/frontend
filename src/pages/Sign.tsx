@@ -126,7 +126,7 @@ const SignUpModal = () => {
                         required
                         fullWidth
                         id="username"
-                        label="User Name"
+                        label="User Name between 3 and 30 characters"
                         autoFocus
                         {...register('username')} // שימוש ב'username' כאן
                       />
@@ -135,7 +135,7 @@ const SignUpModal = () => {
                       <TextField
                         required
                         fullWidth
-                        label="Password"
+                        label="Password minimum 5 characters"
                         type="password"
                         id="password"
                         autoComplete="new-password"
