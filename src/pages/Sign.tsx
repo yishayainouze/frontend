@@ -24,13 +24,33 @@ const SignUpModal = () => {
   const handleClose = () => setOpen(false);
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    // console.log(data);
+    const {
+      user_id,
+      username,
+      password,
+      name,
+      email,
+      address,
+    } = data;
+
     setFormData(data);
+    console.log(user_id, username, password, name, email, address);
+
+    const dataToServerAddUser = {
+      "user_id": user_id,
+      "username": username,
+      "password": password,
+      "name": name,
+      "email": email,
+      "address": address,
+      "cart": []
+    };
 
     try {
       const response = await axios.post(
         "http://localhost:8080/api/users/register",
-        data
+        dataToServerAddUser
       );
 
       console.log(response.data);
@@ -79,86 +99,95 @@ const SignUpModal = () => {
                   Sign up
                 </Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <Box component="div" sx={{ mt: 3 }}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <TextField
-                          autoComplete="given-name"
-                          required
-                          fullWidth
-                          id="userName"
-                          label="User Name"
-                          autoFocus
-                          {...register('userName')}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="name"
-                          label="Name"
-                          {...register('name')}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="email"
-                          label="Email Address"
-                          autoComplete="email"
-                          {...register('email')}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          label="Password"
-                          type="password"
-                          id="password"
-                          autoComplete="new-password"
-                          {...register('password')}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="address"
-                          label="Address"
-                          {...register('address')}
-                        />
-                      </Grid>
-                      {/* <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="cart"
-                          label="Cart"
-                          {...register('cart')}
-                        />
-                      </Grid> */}
+                  {/* <Box component="div" sx={{ mt: 3 }}> Remove this line */}
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        autoComplete="given-name"
+                        required
+                        fullWidth
+                        id="user_id"
+                        label="User id"
+                        autoFocus
+                        {...register('user_id')}
+                      />
                     </Grid>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                    >
-                      Sign Up
-                    </Button>
-                    <Grid container justifyContent="flex-end">
-                      <Grid item>
-                        
-                      </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        autoComplete="given-name"
+                        required
+                        fullWidth
+                        id="userName"
+                        label="User Name"
+                        autoFocus
+                        {...register('userName')}
+                      />
                     </Grid>
-                  </Box>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                        {...register('password')}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="name"
+                        label="Name"
+                        {...register('name')}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        autoComplete="email"
+                        {...register('email')}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="address"
+                        label="Address"
+                        {...register('address')}
+                      />
+                    </Grid>
+                    {/* <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="cart"
+                        label="Cart"
+                        {...register('cart')}
+                      />
+                    </Grid> */}
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Sign Up
+                  </Button>
+                  <Grid container justifyContent="flex-end">
+                    <Grid item>
+                      {/* ... */}
+                    </Grid>
+                  </Grid>
+                  {/* </Box> Remove this line */}
                 </form>
                 {/* Display form data */}
-                
               </Box>
             </Container>
           </ThemeProvider>
