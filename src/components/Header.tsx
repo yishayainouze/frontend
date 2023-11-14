@@ -11,6 +11,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import Login from '../pages/Login';
+import SignUpModal from '../pages/Sign';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +30,22 @@ export default function Header() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const storedUserData = localStorage.getItem('userData');
+
+  // Check if there's any stored data
+  if (storedUserData) {
+    // Parse the stored JSON data
+    const userData = JSON.parse(storedUserData);
+  const{name} = userData
+    // Now you can use the user data as needed
+    console.log('User data from localStorage:', userData);
+  } else {
+    // Handle the case when there's no user data in localStorage
+    console.log('No user data found in localStorage');
+  }
+
+
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -70,6 +88,7 @@ export default function Header() {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
+    
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
@@ -112,6 +131,7 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+
           <IconButton
             size="large"
             edge="start"
@@ -128,6 +148,8 @@ export default function Header() {
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             E-COMMERCE ICIY
+            <h3>{storedUserData }</h3>
+
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton
@@ -145,6 +167,8 @@ export default function Header() {
             <PersonAddIcon />
           </IconButton>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <SignUpModal />
+              <Login />
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <ShoppingCartIcon />
