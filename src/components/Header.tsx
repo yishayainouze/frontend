@@ -62,23 +62,36 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+
+
+  const [userLocalStorageData, setUserLocalStorageData] = React.useState<any>(null);
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+
+  React.useEffect (() => {
+
+
   const storedUserData = localStorage.getItem('userData');
   // Check if there's any stored data
   if (storedUserData) {
     // Parse the stored JSON data
     const userData = JSON.parse(storedUserData);
-  const{name} = userData
+    setUserLocalStorageData(userData);
     // Now you can use the user data as needed
     console.log('User data from localStorage:', userData);
   } else {
     // Handle the case when there's no user data in localStorage
     console.log('No user data found in localStorage');
   }
+
+  },[])
+
+  
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -171,8 +184,7 @@ export default function Header() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            E-COMMERCE ICIY
-            <h3>{storedUserData }</h3>
+            <h3>{userLocalStorageData?.name }</h3>
           </Typography>
           <Search>
             <SearchIconWrapper>
