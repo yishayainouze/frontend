@@ -47,7 +47,7 @@ const Login = () => {
   const handleClose = () => setOpen(false);
 
   const onSubmit = async (data: any) => {
-    console.log(data.email, data.password);
+    console.log(data);
     setFormData(data);
     console.log(formData);
     try {
@@ -92,7 +92,7 @@ const Login = () => {
                     <LockOutlinedIcon />
                   </Avatar>
                   <Typography component="h1" variant="h5">
-                    Sign up
+                    Sign in
                   </Typography>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <Box component="div"  sx={{ mt: 3 }}>
@@ -125,7 +125,7 @@ const Login = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                       >
-                        Sign Up
+                        Sign In
                       </Button>
                       <Grid container justifyContent="flex-end">
                         <Grid item>
