@@ -31,7 +31,6 @@ function App() {
             <Route path="/Sign" element={<Sign />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/compare" element={<Compare />} />
-            <Route path="/pt" element={<ProductCard />} />
           </Route>
         </Routes>
       </BrowserRouter>
