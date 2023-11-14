@@ -71,7 +71,7 @@ export default function SignUpModal() {
                   Sign up
                 </Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <Box component="form" noValidate sx={{ mt: 3 }}>
+                  <Box component="form"  sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <TextField

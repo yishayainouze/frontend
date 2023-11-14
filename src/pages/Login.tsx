@@ -13,6 +13,7 @@ import Container from "@mui/material/Container";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
+
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -25,6 +26,17 @@ const style = {
   p: 4,
 };
 
+// Example User instance
+const exampleUser = {
+  "user_id": 111111,
+  "username": "user1",
+  "password": "password1",
+  "name": "John Doe",
+  "email": "jo1hnd1oe2@example.com",
+  "address": "123 Maple Street",
+  "cart": [],
+};
+
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
@@ -35,20 +47,20 @@ const Login = () => {
   const handleClose = () => setOpen(false);
 
   const onSubmit = async (data: any) => {
-    console.log(data.email, data.password);
+    console.log(data);
     setFormData(data);
-    console.log(formData);
+    // const {name,password} = data
     try {
-      // שלח בקשה לשרת
+      // Send a request to the server
       const response = await axios.post(
-        "https://localhost:8080/api/users",
+        "http://localhost:8080/api/users/login",
         data
       );
 
-      // הדפס את התשובה מהשרת
-      console.log(response.data);
+      // Print the server response
+      console.log(response.data.name);
 
-      // ניתן להוסיף לסטייט או לבצע פעולות נוספות כפי שנדרש
+      // You can add to state or perform additional actions as needed
     } catch (error) {
       console.error("Error sending data to server:", error);
     }
@@ -80,10 +92,10 @@ const Login = () => {
                     <LockOutlinedIcon />
                   </Avatar>
                   <Typography component="h1" variant="h5">
-                    Sign up
+                    login
                   </Typography>
                   <form onSubmit={handleSubmit(onSubmit)}>
-                    <Box component="form" noValidate sx={{ mt: 3 }}>
+                    <Box component="div"  sx={{ mt: 3 }}>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <TextField
@@ -91,7 +103,6 @@ const Login = () => {
                             fullWidth
                             id="email"
                             label="Email Address"
-                            // name="email"
                             autoComplete="email"
                             {...register("email")}
                           />
@@ -100,7 +111,6 @@ const Login = () => {
                           <TextField
                             required
                             fullWidth
-                            // name="password"
                             label="Password"
                             type="password"
                             id="password"
@@ -115,12 +125,12 @@ const Login = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                       >
-                        Sign Up
+                        login
                       </Button>
                       <Grid container justifyContent="flex-end">
                         <Grid item>
                           <Button
-                            type="submit"
+                            type="button"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
@@ -140,7 +150,6 @@ const Login = () => {
             </ThemeProvider>
           </Box>
         </Modal>
-        {/* <SignUpModal/> */}
       </div>
     </div>
   );
