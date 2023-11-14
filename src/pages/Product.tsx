@@ -1,165 +1,57 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { GlobalState } from "../state";
-import { useGetProductQuery } from "../state/api";
-
-function Copyright(props: any) {
+import AspectRatio from '@mui/joy/AspectRatio';
+import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
+import CardOverflow from '@mui/joy/CardOverflow';
+import Chip from '@mui/joy/Chip';
+import Link from '@mui/joy/Link';
+import Typography from '@mui/joy/Typography';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+export default function ProductCard() {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-
-export default function Product() {
-  const navigate = useNavigate();
-  const productId = useSelector(
-    (state: { global: GlobalState }) => state.global.productId
-  );
-  console.log(productId);
-
-  const { data: product } = useGetProductQuery(productId);
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
-  return (
-    <ThemeProvider theme={defaultTheme}>
-      <button onClick={() => navigate("/cart")}>cart</button>
-      <button onClick={() => navigate(-1)}>compare</button>
-      
-      { product && product.commonAttributes &&
-        <Grid container component="main" sx={{ height: "100vh" }}>
-          <CssBaseline />
-          <Grid
-            item
-            xs={false}
-            sm={4}
-            md={7}
-            sx={{
-              backgroundImage: product.commonAttributes.imageURL,
-              backgroundRepeat: "no-repeat",
-              backgroundColor: (t) =>
-                t.palette.mode === "light"
-                  ? t.palette.grey[50]
-                  : t.palette.grey[900],
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
+    <Card sx={{ width: 320, maxWidth: '100%', boxShadow: 'lg' }}>
+      <CardOverflow>
+        <AspectRatio sx={{ minWidth: 200 }}>
+          <img
+            src="https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286"
+            srcSet="https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286&dpr=2 2x"
+            loading="lazy"
+            alt=""
           />
-          <Grid
-            item
-            xs={12}
-            sm={8}
-            md={5}
-            component={Paper}
-            elevation={6}
-            square
-          >
-            <Box
-              sx={{
-                my: 8,
-                mx: 4,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign in
-              </Typography>
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
-                sx={{ mt: 1 }}
-              >
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign In
-                </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="#" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
-                </Grid>
-                <Copyright sx={{ mt: 5 }} />
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
-      }
-    </ThemeProvider>
+        </AspectRatio>
+      </CardOverflow>
+      <CardContent>
+        <Typography level="body-xs">Bluetooth Headset</Typography>
+        <Link
+          href="#product-card"
+          fontWeight="md"
+          color="neutral"
+          textColor="text.primary"
+          overlay
+          endDecorator={<ArrowOutwardIcon />}
+        >
+          Super Rockez A400
+        </Link>
+        <Typography
+          level="title-lg"
+          sx={{ mt: 1, fontWeight: 'xl' }}
+          endDecorator={
+            <Chip component="span" size="sm" variant="soft" color="success">
+              Lowest price
+            </Chip>
+          }
+        >
+          2,900 THB
+        </Typography>
+        <Typography level="body-sm">
+          (Only <b>7</b> left in stock!)
+        </Typography>
+      </CardContent>
+      <CardOverflow>
+        <Button variant="solid" color="danger" size="lg">
+          Add to cart
+        </Button>
+      </CardOverflow>
+    </Card>
   );
 }

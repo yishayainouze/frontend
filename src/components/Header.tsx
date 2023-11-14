@@ -20,6 +20,7 @@ import SignUpModal from '../pages/Sign';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useNavigate } from 'react-router-dom';
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -35,6 +36,7 @@ const Search = styled('div')(({ theme }) => ({
     width: 'auto',
   },
 }));
+
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -58,6 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -169,7 +172,7 @@ export default function Header() {
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             E-COMMERCE ICIY
-            <h3>{storedUserData ? JSON.parse(storedUserData).name : 'Guest'}</h3>
+            <h3>{storedUserData ? 'Welcome '+ JSON.parse(storedUserData).name+"!" : 'Guest'}</h3>
           </Typography>
           <Search>
             <SearchIconWrapper>
