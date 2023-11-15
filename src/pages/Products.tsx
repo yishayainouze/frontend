@@ -77,6 +77,14 @@ const Products = () => {
                           {card.name}
                         </Typography>
                         <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                          sx={{ minHeight: 70 }}
+                        >
+                          {card.commonAttributes.price} $
+                        </Typography>
+                        <Typography
                           variant="body2"
                           color="text.secondary"
                           sx={{ minHeight: 60 }}

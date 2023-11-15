@@ -1,165 +1,100 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { GlobalState } from "../state";
-import { useGetProductQuery } from "../state/api";
-
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+import { useGetProductQuery, useGetUserQuery, useUpdateUserQuery } from "../state/api";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 export default function Product() {
   const navigate = useNavigate();
   const productId = useSelector(
     (state: { global: GlobalState }) => state.global.productId
   );
-  console.log(productId);
 
   const { data: product } = useGetProductQuery(productId);
+  const userId = useSelector(
+    (state: { global: GlobalState }) => state.global.userId
+  );
+  const user = useGetUserQuery(userId);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const getLocalCart = () => {
+    const local = localStorage.getItem("cart");
+    const localData = local ? JSON.parse(local) : [];
+    return localData;
   };
 
+  // const addToCart = () => {
+  //   if (!userId) {
+  //     const cart = getLocalCart();
+  //     const updatedCart = [...cart, product];
+  //     localStorage.setItem("cart", JSON.stringify(updatedCart));
+  //   } else {
+  //     let cart = user.cart;
+  //     const isOnCart = cart.find((p: any) => p.name == product.name);
+  //     if (isOnCart) {
+  //        cart = cart.map((p: any) => {
+  //         if (p.name === product.name) {
+  //           p.num += 1;
+  //           return p;
+  //         } else {
+  //           return p;
+  //         }
+  //       });
+        
+  //     } else {
+  //       cart.push(product)
+  //     }
+  //     user.cart = cart
+  //     useUpdateUserQuery({id: userId, user: user})
+  //   }
+  // };
+
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <button onClick={() => navigate("/cart")}>cart</button>
-      <button onClick={() => navigate(-1)}>compare</button>
-      
-      { product && product.commonAttributes &&
-        <Grid container component="main" sx={{ height: "100vh" }}>
-          <CssBaseline />
-          <Grid
-            item
-            xs={false}
-            sm={4}
-            md={7}
-            sx={{
-              backgroundImage: product.commonAttributes.imageURL,
-              backgroundRepeat: "no-repeat",
-              backgroundColor: (t) =>
-                t.palette.mode === "light"
-                  ? t.palette.grey[50]
-                  : t.palette.grey[900],
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
+
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "93vh",
+        background: "#87CEEB",
+      }}
+    >
+      {product?.commonAttributes && (
+        <Card
+          sx={{
+            width: "70%",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="300"
+            image={product.commonAttributes.imageURL}
+            alt={product.name}
+
           />
-          <Grid
-            item
-            xs={12}
-            sm={8}
-            md={5}
-            component={Paper}
-            elevation={6}
-            square
-          >
-            <Box
-              sx={{
-                my: 8,
-                mx: 4,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign in
-              </Typography>
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
-                sx={{ mt: 1 }}
-              >
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign In
-                </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="#" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
-                </Grid>
-                <Copyright sx={{ mt: 5 }} />
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
-      }
-    </ThemeProvider>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {product.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {product.commonAttributes.description}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button onClick={addToCart} size="small">
+              Add to cart
+            </Button>
+            <Button size="small">Compare</Button>
+          </CardActions>
+        </Card>
+      )}
+    </div>
   );
 }
