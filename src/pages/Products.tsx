@@ -84,11 +84,11 @@ const Products = () => {
           >
             Sort by {categoryAttributeNames[0]}
           </Button>
-          <Button
+           <Button
             variant="outlined"
-            onClick={() => setFilter(categoryAttributeNames[1])} // לשנות לפי הפרמטר שברצונך
+            onClick={() => setFilter(categoryAttributeNames[0])} // לשנות לפי הפרמטר שברצונך
           >
-            Sort by {categoryAttributeNames[1]}
+            Sort by {categoryAttributeNames[0]}
           </Button>
           <Container sx={{ py: 8 }} maxWidth="md">
             <Grid container spacing={4}>
@@ -112,6 +112,14 @@ const Products = () => {
                           sx={{ minHeight: 70 }}
                         >
                           {card.name}
+                        </Typography>
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                          sx={{ minHeight: 70 }}
+                        >
+                          {card.commonAttributes.price} $
                         </Typography>
                         <Typography
                           variant="body2"
