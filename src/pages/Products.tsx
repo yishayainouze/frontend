@@ -53,21 +53,23 @@ const Products = () => {
            price >= filterMinPrice &&
            price <= (filterMaxPrice === Infinity ? price : filterMaxPrice);
   }) : [];  const categoryAttributes = filteredProducts.map((p: any) => p.categoryAttributes);
-  console.log(categoryAttributes);
   const categoryAttributeNames = categoryAttributes.length > 0 ? Object.keys(categoryAttributes[0]) : [];
-  console.log(categoryAttributeNames);
 
   if (filter === "price") {
     filteredProducts = sortBy(filteredProducts, "commonAttributes.price");
   }
   if (filter === categoryAttributeNames[0]) {
-    filteredProducts = sortBy(filteredProducts, "commonAttributes." + categoryAttributeNames[0]);
+    console.log(categoryAttributeNames[0]);
+    filteredProducts = sortBy(filteredProducts,"categoryAttributes."+ categoryAttributeNames[0]);
+    console.log("filer");
     console.log(filteredProducts);
   }
   if (filter === categoryAttributeNames[1]) {
-    filteredProducts = sortBy(filteredProducts, "commonAttributes." + categoryAttributeNames[1]);
+    filteredProducts = sortBy(filteredProducts,"categoryAttributes."+ categoryAttributeNames[1]);
+    console.log("filter 1");
     console.log(filteredProducts);
   }
+  
   const applyPriceFilter = () => {
     setFilterMinPrice(tempMinPrice);
     setFilterMaxPrice(tempMaxPrice);
