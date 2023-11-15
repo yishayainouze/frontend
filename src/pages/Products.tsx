@@ -13,25 +13,44 @@ import {
   CardContent,
 } from "@mui/material";
 import { useGetProductsQuery } from "../state/api";
+import { useState } from "react";
+import sortBy from 'lodash/sortBy';
+
 const Products = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const curCategory = useSelector(
     (state: { global: GlobalState }) => state.global.category
   );
-  // const tempData = useSelector(
-  //   (state: { global: GlobalState }) => state.global.products
-  // );
+  const [filter, setFilter] = useState("");
 
   let { data: products, error } = useGetProductsQuery({});
 
   if (error) {
     return <>error to get products</>;
   }
+  
+  
+  let filteredProducts = products ? products.filter((p: any) => p.category === curCategory) : [];
+  const categoryAttributes = filteredProducts.map((p: any) => p.categoryAttributes);
+  console.log(categoryAttributes);
+  const categoryAttributeNames = categoryAttributes.length > 0 ? Object.keys(categoryAttributes[0]) : [];
+  console.log(categoryAttributeNames);
 
-  products = products
-    ? products.filter((p: any) => p.category == curCategory)
-    : [];
+  if (filter === "price") {
+    filteredProducts = sortBy(filteredProducts, "commonAttributes.price");
+  }
+  if (filter === categoryAttributeNames[0]) {
+    filteredProducts = sortBy(filteredProducts, "commonAttributes." + categoryAttributeNames[0]);
+    console.log(filteredProducts);
+  }
+  if (filter === categoryAttributeNames[1]) {
+    filteredProducts = sortBy(filteredProducts, "commonAttributes." + categoryAttributeNames[1]);
+    console.log(filteredProducts);
+  }
+
+  // תשנה את products ל-filteredProducts כדי להציג את המוצרים הממויינים
+  products = filteredProducts;
 
   return (
     <div style={{ backgroundColor: "#87CEEB", minHeight: "93vh" }}>
@@ -53,11 +72,29 @@ const Products = () => {
               Products
             </Typography>
           </Container>
+          <Button
+            variant="outlined"
+            onClick={() => setFilter("price")} // לשנות לפי הפרמטר שברצונך
+          >
+            Sort by Price
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => setFilter(categoryAttributeNames[0])} // לשנות לפי הפרמטר שברצונך
+          >
+            Sort by {categoryAttributeNames[0]}
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => setFilter(categoryAttributeNames[1])} // לשנות לפי הפרמטר שברצונך
+          >
+            Sort by {categoryAttributeNames[1]}
+          </Button>
           <Container sx={{ py: 8 }} maxWidth="md">
             <Grid container spacing={4}>
               {products &&
                 products.map((card: Product, i: number) => (
-                  <Grid item key={Date.now() * i} xs={12} sm={6} md={4}>
+                  <Grid item key={card.id} xs={12} sm={6} md={4}>
                     <Card sx={{ maxWidth: 345 }}>
                       <CardMedia
                         sx={{ height: 140 }}
