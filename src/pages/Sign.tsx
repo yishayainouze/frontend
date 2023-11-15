@@ -51,7 +51,7 @@ const SignUpModal = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/users/register",
+        "https://server-tpja.onrender.com/api/users/register",
         dataToServerAddUser
       );
       setMessageAnchorEl(document.body as any);
