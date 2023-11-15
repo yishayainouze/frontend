@@ -55,6 +55,7 @@ export default function Product() {
   // };
 
   return (
+
     <div
       style={{
         display: "flex",
@@ -76,6 +77,7 @@ export default function Product() {
             height="300"
             image={product.commonAttributes.imageURL}
             alt={product.name}
+
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">

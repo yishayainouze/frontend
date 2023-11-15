@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -11,48 +11,84 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Popover from "@mui/material/Popover";
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-export default function SignUpModal() {
+const SignUpModal = () => {
   const navigate = useNavigate();
-
   const { register, handleSubmit } = useForm();
-  const [open, setOpen] = React.useState(false);
-  const [formData, setFormData] = React.useState(null);
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [messageAnchorEl, setMessageAnchorEl] = useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const onSubmit = (data:any) => {
-    console.log(data);
-    setFormData(data);
-    console.log(formData);
-    
+  const onSubmit = async (data: any) => {
+    // console.log(data);
+    const {
+      user_id,
+      username,
+      password,
+      name,
+      email,
+      address,
+    } = data;
 
+    setFormData(data);
+    console.log(user_id, username, password, name, email, address);
+
+    const dataToServerAddUser = {
+      "user_id": user_id,
+      "username": username,
+      "password": password,
+      "name": name,
+      "email": email,
+      "address": address,
+      "cart": []
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/users/register",
+        dataToServerAddUser
+      );
+      setMessageAnchorEl(document.body as any);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error sending data to server:", error);
+    }
   };
 
+  const handleCloseMessage = () => {
+    setMessageAnchorEl(null);
+  };
+  
+  const openMessagePopover = Boolean(messageAnchorEl);
+  const messageId = openMessagePopover ? 'simple-popover' : undefined;
   return (
     <div>
-      <Button onClick={handleOpen}>Sign Up</Button>
+      <Button onClick={handleOpen} style={{ color: "white" }}>Sign Up</Button>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
           <ThemeProvider theme={createTheme()}>
             <Container component="main" maxWidth="xs">
               <CssBaseline />
@@ -71,67 +107,118 @@ export default function SignUpModal() {
                   Sign up
                 </Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <Box component="form" noValidate sx={{ mt: 3 }}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <TextField
-                          autoComplete="given-name"
-                          // name="userName"
-                          required
-                          fullWidth
-                          id="userName"
-                          label="User Name"
-                          autoFocus
-                          {...register('userName')}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="email"
-                          label="Email Address"
-                          // name="email"
-                          autoComplete="email"
-                          {...register('email')}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          // name="password"
-                          label="Password"
-                          type="password"
-                          id="password"
-                          autoComplete="new-password"
-                          {...register('password')}
-                        />
-                      </Grid>
+                  {/* <Box component="div" sx={{ mt: 3 }}> Remove this line */}
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        autoComplete="given-name"
+                        required
+                        fullWidth
+                        id="user_id"
+                        label="User id"
+                        autoFocus
+                        {...register('user_id')}
+                      />
                     </Grid>
-                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                      Sign Up
-                    </Button>
-                    <Grid container justifyContent="flex-end">
-                      <Grid item>
-                        {/* <Link href="/Login" variant="body2">
-                          Already have an account? Sign in
-                        </Link> */}
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} 
-                        onClick={() => navigate("/")}>Home
-                   </Button>
-
-                      </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        autoComplete="given-name"
+                        required
+                        fullWidth
+                        id="username"
+                        label="User Name between 3 and 30 characters"
+                        autoFocus
+                        {...register('username')} // שימוש ב'username' כאן
+                      />
                     </Grid>
-                  </Box>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        label="Password minimum 5 characters"
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                        {...register('password')}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="name"
+                        label="Name"
+                        {...register('name')}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        autoComplete="email"
+                        {...register('email')}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="address"
+                        label="Address"
+                        {...register('address')}
+                      />
+                    </Grid>
+                    {/* <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="cart"
+                        label="Cart"
+                        {...register('cart')}
+                      />
+                    </Grid> */}
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Sign Up
+                  </Button>
+                  <Grid container justifyContent="flex-end">
+                    <Grid item>
+                      {/* ... */}
+                    </Grid>
+                  </Grid>
+                  {/* </Box> Remove this line */}
                 </form>
+                {/* Display form data */}
               </Box>
             </Container>
           </ThemeProvider>
         </Box>
       </Modal>
-    
+      <Popover
+        id={messageId}
+        open={openMessagePopover}
+        anchorEl={messageAnchorEl}
+        onClose={handleCloseMessage}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Typography sx={{ p: 2 }}>Success to Register</Typography>
+      </Popover>
     </div>
   );
-}
+};
+
+export default SignUpModal;

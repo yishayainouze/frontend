@@ -13,6 +13,8 @@ import Container from "@mui/material/Container";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
+import Popover from "@mui/material/Popover";
+
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -30,34 +32,53 @@ const Login = () => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
   const onSubmit = async (data: any) => {
-    console.log(data.email, data.password);
+    console.log(data);
     setFormData(data);
-    console.log(formData);
+  
     try {
-      // שלח בקשה לשרת
       const response = await axios.post(
-        "https://localhost:8080/api/users",
+        "http://localhost:8080/api/users/login",
         data
       );
-
-      // הדפס את התשובה מהשרת
-      console.log(response.data);
-
-      // ניתן להוסיף לסטייט או לבצע פעולות נוספות כפי שנדרש
+  
+      if (response.data.error) {
+        // Open the popover with the error message
+        setAnchorEl(document.body);
+      } else {
+        // Close the popover
+        setAnchorEl(null);
+  
+        // Save user data in local storage
+        localStorage.setItem('userData', JSON.stringify(response.data.user));
+  
+        console.log("User data saved in localStorage:", response.data.user);
+        navigate("/");
+      }
     } catch (error) {
       console.error("Error sending data to server:", error);
+      // Open the popover with the error message
+      setAnchorEl(document.body);
     }
   };
+  
+
+  const openPopover = Boolean(anchorEl);
+  const id = openPopover ? "simple-popover" : undefined;
 
   return (
     <div>
       <div>
-        <Button onClick={handleOpen}>Login</Button>
+        <Button onClick={handleOpen} style={{color:"white"}}>Login</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -80,10 +101,10 @@ const Login = () => {
                     <LockOutlinedIcon />
                   </Avatar>
                   <Typography component="h1" variant="h5">
-                    Sign up
+                    login
                   </Typography>
                   <form onSubmit={handleSubmit(onSubmit)}>
-                    <Box component="form" noValidate sx={{ mt: 3 }}>
+                    <Box component="div" sx={{ mt: 3 }}>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <TextField
@@ -91,8 +112,8 @@ const Login = () => {
                             fullWidth
                             id="email"
                             label="Email Address"
-                            // name="email"
                             autoComplete="email"
+                            type="email"
                             {...register("email")}
                           />
                         </Grid>
@@ -100,7 +121,6 @@ const Login = () => {
                           <TextField
                             required
                             fullWidth
-                            // name="password"
                             label="Password"
                             type="password"
                             id="password"
@@ -115,12 +135,12 @@ const Login = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                       >
-                        Sign Up
+                        login
                       </Button>
                       <Grid container justifyContent="flex-end">
                         <Grid item>
                           <Button
-                            type="submit"
+                            type="button"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
@@ -140,8 +160,24 @@ const Login = () => {
             </ThemeProvider>
           </Box>
         </Modal>
-        {/* <SignUpModal/> */}
       </div>
+
+      <Popover
+        id={id}
+        open={openPopover}
+        anchorEl={anchorEl}
+        onClose={handlePopoverClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Typography sx={{ p: 2 }}>Invalid email or password</Typography>
+      </Popover>
     </div>
   );
 };

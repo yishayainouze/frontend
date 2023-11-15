@@ -10,8 +10,6 @@ const Cart = () => {
     <div>
       <div>
 
-        <SignUpModal />
-        <Login />
       </div>
       <div>
         Cart
@@ -23,3 +21,4 @@ const Cart = () => {
 };
 
 export default Cart;
+
