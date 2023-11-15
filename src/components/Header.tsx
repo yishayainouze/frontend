@@ -95,8 +95,8 @@ export default function Header() {
   };
 
   const handleLogout = () => {
-    localStorage.clear();
-    navigate('/login'); // Redirect to the login page after logout
+    localStorage.removeItem('userData');
+    // navigate('/login'); 
   };
 
   const menuId = 'primary-search-account-menu';
