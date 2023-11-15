@@ -14,9 +14,8 @@ import {
 } from "@mui/material";
 import { useGetProductsQuery } from "../state/api";
 import { useState } from "react";
-import sortBy from 'lodash/sortBy';
-import { TextField } from '@mui/material';
-
+import sortBy from "lodash/sortBy";
+import { TextField } from "@mui/material";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -38,46 +37,59 @@ const Products = () => {
   if (error) {
     return <>error to get products</>;
   }
-  
-  
+
   const [tempMinPrice, setTempMinPrice] = useState(Infinity);
   const [tempMaxPrice, setTempMaxPrice] = useState(Infinity);
 
   // State for actual filtering
   const [filterMinPrice, setFilterMinPrice] = useState(0);
   const [filterMaxPrice, setFilterMaxPrice] = useState(Infinity);
-  
-  let filteredProducts = products ? products.filter((p: Product) => {
-    const price = p.commonAttributes.price;
-    return p.category === curCategory &&
-           price >= filterMinPrice &&
-           price <= (filterMaxPrice === Infinity ? price : filterMaxPrice);
-  }) : [];  const categoryAttributes = filteredProducts.map((p: any) => p.categoryAttributes);
+
+  let filteredProducts = products
+    ? products.filter((p: Product) => {
+        const price = p.commonAttributes.price;
+        return (
+          p.category === curCategory &&
+          price >= filterMinPrice &&
+          price <= (filterMaxPrice === Infinity ? price : filterMaxPrice)
+        );
+      })
+    : [];
+  const categoryAttributes = filteredProducts.map(
+    (p: any) => p.categoryAttributes
+  );
   console.log(categoryAttributes);
-  const categoryAttributeNames = categoryAttributes.length > 0 ? Object.keys(categoryAttributes[0]) : [];
+  const categoryAttributeNames =
+    categoryAttributes.length > 0 ? Object.keys(categoryAttributes[0]) : [];
   console.log(categoryAttributeNames);
 
   if (filter === "price") {
     filteredProducts = sortBy(filteredProducts, "commonAttributes.price");
   }
   if (filter === categoryAttributeNames[0]) {
-    filteredProducts = sortBy(filteredProducts, "commonAttributes." + categoryAttributeNames[0]);
+    filteredProducts = sortBy(
+      filteredProducts,
+      "commonAttributes." + categoryAttributeNames[0]
+    );
     console.log(filteredProducts);
   }
   if (filter === categoryAttributeNames[1]) {
-    filteredProducts = sortBy(filteredProducts, "commonAttributes." + categoryAttributeNames[1]);
+    filteredProducts = sortBy(
+      filteredProducts,
+      "commonAttributes." + categoryAttributeNames[1]
+    );
     console.log(filteredProducts);
   }
   const applyPriceFilter = () => {
     setFilterMinPrice(tempMinPrice);
     setFilterMaxPrice(tempMaxPrice);
-    setFilter('priceRange'); // or any other logic to trigger re-render
+    setFilter("priceRange"); // or any other logic to trigger re-render
   };
 
   // תשנה את products ל-filteredProducts כדי להציג את המוצרים הממויינים
   products = filteredProducts;
-=======
-  products = products? products.filter((p: any) => p.category == curCategory)
+  products = products
+    ? products.filter((p: any) => p.category == curCategory)
     : [];
 
   //lodash  products =  _.sortBy(products, filter)
@@ -85,7 +97,6 @@ const Products = () => {
   return (
     <div style={{ backgroundColor: "#87CEEB", minHeight: "93vh" }}>
       <div>
-     
         <Box
           sx={{
             pt: 8,
@@ -103,46 +114,57 @@ const Products = () => {
               Products
             </Typography>
           </Container>
-          <Button
-            variant="outlined"
-            onClick={() => setFilter("price")} // לשנות לפי הפרמטר שברצונך
-          >
-            Sort by Price
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={() => setFilter(categoryAttributeNames[0])} // לשנות לפי הפרמטר שברצונך
-          >
-            Sort by {categoryAttributeNames[0]}
-          </Button>
-           <Button
-            variant="outlined"
-            onClick={() => setFilter(categoryAttributeNames[1])} // לשנות לפי הפרמטר שברצונך
-          >
-            Sort by {categoryAttributeNames[1]}
-          </Button>
-          <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
-        <TextField
-          label="Min Price"
-          type="number"
-          variant="outlined"
-          value={tempMinPrice}
-          onChange={(e) => setTempMinPrice(Number(e.target.value))}
-        />
-        <TextField
-          label="Max Price"
-          type="number"
-          variant="outlined"
-          value={tempMaxPrice}
-          onChange={(e) => setTempMaxPrice(Number(e.target.value))}
-        />
-        <Button
-          variant="contained"
-          onClick={applyPriceFilter}
-        >
-          Filter by Price Range
-        </Button>
-      </Box>
+          <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
+            <div
+              style={{
+                display: "flex",
+                width: "50%",
+                justifyContent: "space-between",
+              }}
+            >
+              <Button
+                variant="outlined"
+                onClick={() => setFilter("price")} // לשנות לפי הפרמטר שברצונך
+              >
+                Sort by Price
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => setFilter(categoryAttributeNames[0])} // לשנות לפי הפרמטר שברצונך
+              >
+                Sort by {categoryAttributeNames[0]}
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => setFilter(categoryAttributeNames[1])} // לשנות לפי הפרמטר שברצונך
+              >
+                Sort by {categoryAttributeNames[1]}
+              </Button>
+            </div>
+          </div>
+          <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
+            <TextField
+              label="Min Price"
+              type="number"
+              variant="outlined"
+              value={tempMinPrice}
+              onChange={(e) => setTempMinPrice(Number(e.target.value))}
+            />
+            <TextField
+              label="Max Price"
+              type="number"
+              variant="outlined"
+              value={tempMaxPrice}
+              onChange={(e) => setTempMaxPrice(Number(e.target.value))}
+            />
+            <Button variant="contained" onClick={applyPriceFilter}>
+              Filter by Price Range
+            </Button>
+          </Box>
           <Container sx={{ py: 8 }} maxWidth="md">
             <Grid container spacing={4}>
               {products &&
@@ -182,7 +204,7 @@ const Products = () => {
                           {card.commonAttributes.description}
                         </Typography>
                       </CardContent>
-                      
+
                       <CardActions>
                         <Button
                           onClick={() => {
@@ -191,8 +213,8 @@ const Products = () => {
                             //   dispatch(setCompare(compare))
                             //   navigate("/compare")
                             // } else {
-                              dispatch(setProductId(String(card.id)));
-                              navigate("/product");
+                            dispatch(setProductId(String(card.id)));
+                            navigate("/product");
                             // }
                           }}
                           size="small"
