@@ -72,28 +72,7 @@ const Products = () => {
   return (
     <div style={{ backgroundColor: "#87CEEB", minHeight: "93vh" }}>
       <div>
-      <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
-        <TextField
-          label="Min Price"
-          type="number"
-          variant="outlined"
-          value={tempMinPrice}
-          onChange={(e) => setTempMinPrice(Number(e.target.value))}
-        />
-        <TextField
-          label="Max Price"
-          type="number"
-          variant="outlined"
-          value={tempMaxPrice}
-          onChange={(e) => setTempMaxPrice(Number(e.target.value))}
-        />
-        <Button
-          variant="contained"
-          onClick={applyPriceFilter}
-        >
-          Filter by Price Range
-        </Button>
-      </Box>
+     
         <Box
           sx={{
             pt: 8,
@@ -129,6 +108,28 @@ const Products = () => {
           >
             Sort by {categoryAttributeNames[1]}
           </Button>
+          <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
+        <TextField
+          label="Min Price"
+          type="number"
+          variant="outlined"
+          value={tempMinPrice}
+          onChange={(e) => setTempMinPrice(Number(e.target.value))}
+        />
+        <TextField
+          label="Max Price"
+          type="number"
+          variant="outlined"
+          value={tempMaxPrice}
+          onChange={(e) => setTempMaxPrice(Number(e.target.value))}
+        />
+        <Button
+          variant="contained"
+          onClick={applyPriceFilter}
+        >
+          Filter by Price Range
+        </Button>
+      </Box>
           <Container sx={{ py: 8 }} maxWidth="md">
             <Grid container spacing={4}>
               {products &&
