@@ -180,6 +180,7 @@ export default function Header() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
+            <h3>{storedUserData ? JSON.parse(storedUserData).name : 'Guest'}</h3>
           </Typography>
           <Search>
             <SearchIconWrapper>
