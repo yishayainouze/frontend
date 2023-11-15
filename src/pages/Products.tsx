@@ -29,8 +29,7 @@ const Products = () => {
     return <>error to get products</>;
   }
 
-  products = products
-    ? products.filter((p: any) => p.category == curCategory)
+  products = products? products.filter((p: any) => p.category == curCategory)
     : [];
 
   return (
@@ -92,6 +91,7 @@ const Products = () => {
                           {card.commonAttributes.description}
                         </Typography>
                       </CardContent>
+                      
                       <CardActions>
                         <Button
                           onClick={() => {
