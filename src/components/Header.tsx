@@ -21,7 +21,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { GlobalState } from '../state';
-
+import { Button } from '@mui/base';
+import { Logout } from '@mui/icons-material';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -63,6 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+  
   const [userLocalStorageData, setUserLocalStorageData] =
     React.useState<any>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -74,6 +76,13 @@ export default function Header() {
   const storedUserData = localStorage.getItem('userData');
   const navigate = useNavigate()
 
+  React.useEffect(() => {
+    const storedUserData = localStorage.getItem(`userData`);
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      setUserLocalStorageData(userData);
+    }
+  }, []);
   const {cart} = useSelector((state : {global: GlobalState}) => state.global)
   // Check if there's any stored data
   if (storedUserData) {
@@ -105,7 +114,7 @@ export default function Header() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userData');
+    localStorage.removeItem(`userData`);
   };
 
   const menuId = "primary-search-account-menu";
@@ -254,7 +263,7 @@ export default function Header() {
             </IconButton>
           </Box>
           <Button color="inherit" onClick={handleLogout}>
-            Logout
+            <Logout/>
           </Button>
         </Toolbar>
       </AppBar>
