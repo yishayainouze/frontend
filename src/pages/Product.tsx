@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { GlobalState } from "../state";
+import { useDispatch, useSelector } from "react-redux";
+import { GlobalState, setCart, setCompare } from "../state";
 import { useGetProductQuery, useGetUserQuery } from "../state/api";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -11,8 +11,9 @@ import Typography from "@mui/material/Typography";
 
 export default function Product() {
   const navigate = useNavigate();
-  const productId = useSelector(
-    (state: { global: GlobalState }) => state.global.productId
+  const dispatch = useDispatch();
+  let { productId, cart, compare } = useSelector(
+    (state: { global: GlobalState }) => state.global
   );
 
   const { data: product } = useGetProductQuery(productId);
@@ -21,9 +22,6 @@ export default function Product() {
   );
   const user = useGetUserQuery(userId);
 
-  const handleCompare =()=> {
-    
-  }
 
   // const getLocalCart = () => {
   //   const local = localStorage.getItem("cart");
@@ -31,34 +29,25 @@ export default function Product() {
   //   return localData;
   // };
 
-  // const addToCart = () => {
-  //   if (!userId) {
-  //     const cart = getLocalCart();
-  //     const updatedCart = [...cart, product];
-  //     localStorage.setItem("cart", JSON.stringify(updatedCart));
-  //   } else {
-  //     let cart = user.cart;
-  //     const isOnCart = cart.find((p: any) => p.name == product.name);
-  //     if (isOnCart) {
-  //        cart = cart.map((p: any) => {
-  //         if (p.name === product.name) {
-  //           p.num += 1;
-  //           return p;
-  //         } else {
-  //           return p;
-  //         }
-  //       });
-        
-  //     } else {
-  //       cart.push(product)
-  //     }
-  //     user.cart = cart
-  //     useUpdateUserQuery({id: userId, user: user})
-  //   }
-  // };
+  const addToCart = () => {
+    let temp = [...cart, product];
+    console.log(temp);
+    dispatch(setCart(temp));
+    navigate("/cart");
+  };
+
+  const addToCompare = () => {
+    let temp = [...compare, product];
+    console.log(temp);
+    dispatch(setCompare(temp));
+    if (compare.length > 0) {
+      navigate("/compare");
+    }else {
+      navigate(-1)
+    }
+  };
 
   return (
-
     <div
       style={{
         display: "flex",
@@ -80,7 +69,6 @@ export default function Product() {
             height="300"
             image={product.commonAttributes.imageURL}
             alt={product.name}
-
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -91,10 +79,12 @@ export default function Product() {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button onClick={()=> ""} size="small">
+            <Button onClick={() => addToCart()} size="small">
               Add to cart
             </Button>
-            <Button size="small" onClick={handleCompare}>Compare</Button>
+            <Button size="small" onClick={addToCompare}>
+              Compare
+            </Button>
           </CardActions>
         </Card>
       )}

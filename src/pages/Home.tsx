@@ -18,16 +18,20 @@ import { useDispatch } from "react-redux";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const data = useSelector(
-    (state: { global: GlobalState }) => state.global.products
-  );
-  console.log(data);
+  // const data = useSelector(
+  //   (state: { global: GlobalState }) => state.global.products
+  // );
+  // console.log(data);
 
-  const { data: categories, error } = useGetCategoriesQuery() || [];
+  //state-filter
+
+  const { data: categories, error } = useGetCategoriesQuery() || []; //categories
   if (error) {
     // Handle the error, e.g., display an error message
     return <div>Error loading categories</div>;
   }
+
+  //filter
 
   return (
     <div style={{ backgroundColor: "#87CEEB" }}>
@@ -50,7 +54,7 @@ const Home = () => {
         </Container>
         <Container sx={{ py: 8, width: "80%", margin: "0 auto" }} maxWidth="md">
           <Grid container spacing={4}>
-            {categories &&
+            {categories && // category - price
               categories.map((card: any, i: number) => (
                 <Grid item key={Date.now() * i} xs={12} sm={6} md={4}>
                   <div

@@ -13,12 +13,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Login from '../pages/Login';
 import SignUpModal from '../pages/Sign';
 import HomeIcon from '@mui/icons-material/Home';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
@@ -68,6 +66,7 @@ export default function Header() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const storedUserData = localStorage.getItem('userData');
+  const navigate = useNavigate()
   // Check if there's any stored data
   if (storedUserData) {
     // Parse the stored JSON data
@@ -130,8 +129,8 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+      <MenuItem >
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit" >
           <Badge badgeContent={4} color="error">
             <ShoppingCartIcon />
           </Badge>
@@ -187,7 +186,7 @@ export default function Header() {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <SignUpModal />
               <Login />
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={()=> navigate("/cart")}>
               <Badge badgeContent={4} color="error">
                 <ShoppingCartIcon />
               </Badge>
@@ -197,6 +196,17 @@ export default function Header() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
+            </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={()=> navigate("/")}
+              color="inherit"
+            >
+              <HomeIcon />
             </IconButton>
             <IconButton
               size="large"

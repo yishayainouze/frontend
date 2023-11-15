@@ -1,67 +1,100 @@
-import { useNavigate } from "react-router-dom";
+
 import { useSelector } from "react-redux";
-import { GlobalState } from "../state";
-import AspectRatio from '@mui/joy/AspectRatio';
-import Button from '@mui/joy/Button';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import IconButton from '@mui/joy/IconButton';
-import Typography from '@mui/joy/Typography';
-import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
+import { useNavigate } from "react-router-dom";
+import { GlobalState, Product } from "../state";
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Card,
+  CardMedia,
+  Button,
+  CardActions,
+  CardContent,
+} from "@mui/material";
+
 
 const Compare = () => {
   const navigate = useNavigate();
-  const data = useSelector(
-    (state: { global: GlobalState }) => state.global.products
-  );
-  console.log(data);
-
+  const {compare} = useSelector((state: {global: GlobalState}) => state.global)
+  console.log(compare);
+  
   return (
     <div>
-      Compare
-      <button onClick={() => navigate("/cart")}>carts</button>
-      <Card sx={{ width: 320 }}>
+      <div style={{ backgroundColor: "#87CEEB", minHeight: "93vh" }}>
       <div>
-        <Typography level="title-lg">Yosemite National Park</Typography>
-        <Typography level="body-sm">April 24 to May 02, 2021</Typography>
-        <IconButton
-          aria-label="bookmark Bahamas Islands"
-          variant="plain"
-          color="neutral"
-          size="sm"
-          sx={{ position: 'absolute', top: '0.875rem', right: '0.5rem' }}
+        <Box
+          sx={{
+            pt: 8,
+            pb: 6,
+          }}
         >
-          <BookmarkAdd />
-        </IconButton>
+          <Container maxWidth="sm">
+            <Typography
+              component="h1"
+              variant="h2"
+              align="center"
+              color="text.primary"
+              gutterBottom
+            >
+              Compare
+            </Typography>
+          </Container>
+          <Container sx={{ py: 8 }} maxWidth="md">
+            <Grid container spacing={4}>
+              {compare &&
+                compare.map((card: Product, i: number) => (
+                  <Grid item key={Date.now() * i} xs={12} sm={6} md={4}>
+                    <Card sx={{ maxWidth: 345 }}>
+                      <CardMedia
+                        sx={{ height: 140 }}
+                        image={card.commonAttributes.imageURL}
+                        title="green iguana"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h6" component="div">
+                          {card.category}
+                        </Typography>
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                          sx={{ minHeight: 70 }}
+                        >
+                          {card.name}
+                        </Typography>
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                          sx={{ minHeight: 70 }}
+                        >
+                          {card.commonAttributes.price} $
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ minHeight: 60 }}
+                        >
+                          {card.commonAttributes.description}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ))}
+            </Grid>
+          </Container>
+        </Box>
       </div>
-      <AspectRatio minHeight="120px" maxHeight="200px">
-        <img
-          src="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286"
-          srcSet="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286&dpr=2 2x"
-          loading="lazy"
-          alt=""
-        />
-      </AspectRatio>
-      <CardContent orientation="horizontal">
-        <div>
-          <Typography level="body-xs">Total price:</Typography>
-          <Typography fontSize="lg" fontWeight="lg">
-            $2,900
-          </Typography>
-        </div>
-        <Button
-          variant="solid"
-          size="md"
-          color="primary"
-          aria-label="Explore Bahamas Islands"
-          sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
-        >
-          Explore
-        </Button>
-      </CardContent>
-    </Card>
+    </div>
+
     </div>
   );
 };
 
 export default Compare;
+
