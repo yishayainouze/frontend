@@ -59,7 +59,7 @@ const Login = () => {
         setAnchorEl(null);
   
         // Save user data in local storage
-        localStorage.setItem('userData', JSON.stringify(response.data.user));
+        localStorage.setItem(`userData`, JSON.stringify(response.data.user));
   
         console.log("User data saved in localStorage:", response.data.user);
         navigate("/");
@@ -146,7 +146,7 @@ const Login = () => {
                             sx={{ mt: 3, mb: 2 }}
                             onClick={() => {
                               onSubmit(formData);
-                              navigate("/");
+                              // navigate("/");
                             }}
                           >
                             Home
