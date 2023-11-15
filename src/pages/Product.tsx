@@ -21,11 +21,15 @@ export default function Product() {
   );
   const user = useGetUserQuery(userId);
 
-  const getLocalCart = () => {
-    const local = localStorage.getItem("cart");
-    const localData = local ? JSON.parse(local) : [];
-    return localData;
-  };
+  const handleCompare =()=> {
+    
+  }
+
+  // const getLocalCart = () => {
+  //   const local = localStorage.getItem("cart");
+  //   const localData = local ? JSON.parse(local) : [];
+  //   return localData;
+  // };
 
   // const addToCart = () => {
   //   if (!userId) {
@@ -90,7 +94,7 @@ export default function Product() {
             <Button onClick={()=> ""} size="small">
               Add to cart
             </Button>
-            <Button size="small">Compare</Button>
+            <Button size="small" onClick={handleCompare}>Compare</Button>
           </CardActions>
         </Card>
       )}

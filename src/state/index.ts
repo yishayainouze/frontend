@@ -431,7 +431,8 @@ const initialState: GlobalState = {
 
   ],
   category: "",
-  productId: ""
+  productId: "",
+  
 };
 
 export const globalSlice = createSlice({
