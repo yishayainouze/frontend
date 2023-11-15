@@ -81,10 +81,11 @@ export default function Product() {
           <CardActions>
             <Button onClick={() => addToCart()} size="small">
               Add to cart
-            </Button>
+
             <Button size="small" onClick={addToCompare}>
               Compare
             </Button>
+
           </CardActions>
         </Card>
       )}

@@ -34,8 +34,7 @@ const Products = () => {
     return <>error to get products</>;
   }
 
-  products = products
-    ? products.filter((p: any) => p.category == curCategory)
+  products = products? products.filter((p: any) => p.category == curCategory)
     : [];
 
   //lodash  products =  _.sortBy(products, filter)
@@ -99,6 +98,7 @@ const Products = () => {
                           {card.commonAttributes.description}
                         </Typography>
                       </CardContent>
+                      
                       <CardActions>
                         <Button
                           onClick={() => {
