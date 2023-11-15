@@ -87,7 +87,7 @@ export default function Product() {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button onClick={addToCart} size="small">
+            <Button onClick={()=> ""} size="small">
               Add to cart
             </Button>
             <Button size="small">Compare</Button>
