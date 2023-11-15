@@ -76,7 +76,6 @@ const Products = () => {
 
   // תשנה את products ל-filteredProducts כדי להציג את המוצרים הממויינים
   products = filteredProducts;
-=======
   products = products? products.filter((p: any) => p.category == curCategory)
     : [];
 
