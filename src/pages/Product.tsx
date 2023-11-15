@@ -86,6 +86,9 @@ export default function Product() {
             <Button size="small" onClick={addToCompare}>
               Compare
             </Button>
+            <Button size="small" onClick={()=>{navigate("/Map")}}>
+            Available at these stores:
+            </Button>
 
           </CardActions>
         </Card>
