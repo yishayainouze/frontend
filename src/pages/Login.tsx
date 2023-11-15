@@ -64,6 +64,7 @@ const Login = () => {
 
         console.log("User data saved in localStorage:", response.data.user);
         navigate("/");
+
       }
     } catch (error) {
       console.error("Error sending data to server:", error);

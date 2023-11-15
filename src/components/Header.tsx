@@ -72,7 +72,7 @@ export default function Header() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
+    const storedUserData = localStorage.getItem(`userData`);
     if (storedUserData) {
       const userData = JSON.parse(storedUserData);
       setUserLocalStorageData(userData);
@@ -97,7 +97,7 @@ export default function Header() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userData');
+    localStorage.removeItem(`userData`);
   };
 
   const menuId = "primary-search-account-menu";
