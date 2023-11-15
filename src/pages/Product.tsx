@@ -1,57 +1,98 @@
-import AspectRatio from '@mui/joy/AspectRatio';
-import Button from '@mui/joy/Button';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import CardOverflow from '@mui/joy/CardOverflow';
-import Chip from '@mui/joy/Chip';
-import Link from '@mui/joy/Link';
-import Typography from '@mui/joy/Typography';
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-export default function ProductCard() {
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { GlobalState, setCart, setCompare } from "../state";
+import { useGetProductQuery, useGetUserQuery } from "../state/api";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+
+export default function Product() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  let { productId, cart, compare } = useSelector(
+    (state: { global: GlobalState }) => state.global
+  );
+
+  const { data: product } = useGetProductQuery(productId);
+  const userId = useSelector(
+    (state: { global: GlobalState }) => state.global.userId
+  );
+  const user = useGetUserQuery(userId);
+
+
+  // const getLocalCart = () => {
+  //   const local = localStorage.getItem("cart");
+  //   const localData = local ? JSON.parse(local) : [];
+  //   return localData;
+  // };
+
+  const addToCart = () => {
+    let temp = [...cart, product];
+    console.log(temp);
+    dispatch(setCart(temp));
+    navigate("/cart");
+  };
+
+  const addToCompare = () => {
+    let temp = [...compare, product];
+    console.log(temp);
+    dispatch(setCompare(temp));
+    if (compare.length > 0) {
+      navigate("/compare");
+    }else {
+      navigate(-1)
+    }
+  };
+
   return (
-    <Card sx={{ width: 320, maxWidth: '100%', boxShadow: 'lg' }}>
-      <CardOverflow>
-        <AspectRatio sx={{ minWidth: 200 }}>
-          <img
-            src="https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286"
-            srcSet="https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286&dpr=2 2x"
-            loading="lazy"
-            alt=""
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "93vh",
+        background: "#87CEEB",
+      }}
+    >
+      {product?.commonAttributes && (
+        <Card
+          sx={{
+            width: "70%",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="300"
+            image={product.commonAttributes.imageURL}
+            alt={product.name}
           />
-        </AspectRatio>
-      </CardOverflow>
-      <CardContent>
-        <Typography level="body-xs">Bluetooth Headset</Typography>
-        <Link
-          href="#product-card"
-          fontWeight="md"
-          color="neutral"
-          textColor="text.primary"
-          overlay
-          endDecorator={<ArrowOutwardIcon />}
-        >
-          Super Rockez A400
-        </Link>
-        <Typography
-          level="title-lg"
-          sx={{ mt: 1, fontWeight: 'xl' }}
-          endDecorator={
-            <Chip component="span" size="sm" variant="soft" color="success">
-              Lowest price
-            </Chip>
-          }
-        >
-          2,900 THB
-        </Typography>
-        <Typography level="body-sm">
-          (Only <b>7</b> left in stock!)
-        </Typography>
-      </CardContent>
-      <CardOverflow>
-        <Button variant="solid" color="danger" size="lg">
-          Add to cart
-        </Button>
-      </CardOverflow>
-    </Card>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {product.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {product.commonAttributes.description}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button onClick={() => addToCart()} size="small">
+              Add to cart
+              </Button>
+
+            <Button size="small" onClick={addToCompare}>
+              Compare
+            </Button>
+            <Button size="small" onClick={()=>{navigate("/Map")}}>
+            Available at these stores:
+            </Button>
+
+          </CardActions>
+        </Card>
+      )}
+    </div>
   );
 }

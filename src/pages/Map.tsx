@@ -7,6 +7,9 @@ import Overlay from 'ol/Overlay';
 import { defaults as defaultControls } from 'ol/control';
 import { defaults as defaultInteractions } from 'ol/interaction';
 import { fromLonLat } from 'ol/proj';
+
+
+
 const IsraelMap: React.FC = () => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [dialogText, setDialogText] = useState<string>(''); // הוסף משתנה להצגת טקסט בדיאלוג
@@ -119,7 +122,7 @@ const IsraelMap: React.FC = () => {
     return markerElement;
   };
   return (
-    <div ref={mapRef} style={{ width: '590px', height: '400px' }}>
+    <div ref={mapRef} style={{ width: '100%', height: '400px' }}>
       <div style={{ display: 'table-row' }}>
         {/* הצג תיבת דיאלוג מותאמת אישית */}
         <div style={{ position: 'absolute', top: '10px', left: '300px',margin:"8px", backgroundColor: 'white', padding: '8px', border: '1px solid black', borderRadius: '4px', display: dialogText ? 'block' : 'none' }}>

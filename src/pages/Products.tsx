@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { GlobalState, Product, setProductId } from "../state";
+import { GlobalState, Product, setCompare, setProductId } from "../state";
 import {
   Box,
   Container,
@@ -17,15 +17,23 @@ import { useState } from "react";
 import sortBy from 'lodash/sortBy';
 import { TextField } from '@mui/material';
 
+
 const Products = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const compare = useSelector(
+    (state: { global: GlobalState }) => state.global.compare
+  );
   const curCategory = useSelector(
     (state: { global: GlobalState }) => state.global.category
   );
   const [filter, setFilter] = useState("");
 
-  let { data: products, error } = useGetProductsQuery({});
+  // const tempData = useSelector(
+  //   (state: { global: GlobalState }) => state.global.products
+  // );
+
+  let { data: products, error } = useGetProductsQuery({}); // products
 
   if (error) {
     return <>error to get products</>;
@@ -68,6 +76,11 @@ const Products = () => {
 
   // תשנה את products ל-filteredProducts כדי להציג את המוצרים הממויינים
   products = filteredProducts;
+=======
+  products = products? products.filter((p: any) => p.category == curCategory)
+    : [];
+
+  //lodash  products =  _.sortBy(products, filter)
 
   return (
     <div style={{ backgroundColor: "#87CEEB", minHeight: "93vh" }}>
@@ -169,12 +182,18 @@ const Products = () => {
                           {card.commonAttributes.description}
                         </Typography>
                       </CardContent>
+                      
                       <CardActions>
                         <Button
                           onClick={() => {
-                            console.log(card.id);
-                            dispatch(setProductId(String(card.id)));
-                            navigate("/product");
+                            // if (compare?.length() > 0) {
+                            //   compare.push(card.name)
+                            //   dispatch(setCompare(compare))
+                            //   navigate("/compare")
+                            // } else {
+                              dispatch(setProductId(String(card.id)));
+                              navigate("/product");
+                            // }
                           }}
                           size="small"
                         >

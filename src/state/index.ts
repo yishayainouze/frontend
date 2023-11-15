@@ -12,16 +12,18 @@ export interface Product {
     manufacturer: string;
     description: string;
     imageURL: string;
-  },
-  categoryAttributes:any;
+  };
+  categoryAttributes: any;
 }
 
 export interface GlobalState {
   mode: string;
   userId: number;
   products: Product[];
-  category: string,
-  productId: string
+  category: string;
+  productId: string;
+  compare: any;
+  cart: any;
 }
 
 const initialState: GlobalState = {
@@ -29,7 +31,6 @@ const initialState: GlobalState = {
   userId: 1,
   products: [
     {
-
       _id: {
         $oid: "65508a253df12112f47734e2",
       },
@@ -428,10 +429,11 @@ const initialState: GlobalState = {
         resolution: "4K UHD",
       },
     },
-
   ],
   category: "",
-  productId: ""
+  productId: "",
+  compare: [],
+  cart: [],
 };
 
 export const globalSlice = createSlice({
@@ -447,8 +449,15 @@ export const globalSlice = createSlice({
     setProductId: (state, action: PayloadAction<string>) => {
       state.productId = action.payload;
     },
+    setCompare: (state, action) => {
+      state.compare = action.payload;
+    },
+    setCart: (state, action) => {
+      state.cart = action.payload;
+    },
   },
 });
 
-export const { setMode, setCategory, setProductId } = globalSlice.actions;
+export const { setMode, setCategory, setProductId, setCompare, setCart } =
+  globalSlice.actions;
 export default globalSlice.reducer;

@@ -51,11 +51,17 @@ const SignUpModal = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/users/register",
+        "https://server-tpja.onrender.com/api/users/register",
         dataToServerAddUser
       );
       setMessageAnchorEl(document.body as any);
       console.log(response.data);
+      // Save user data in local storage
+      localStorage.setItem(`userData`, JSON.stringify(response.data.user));
+
+      console.log("User data saved in localStorage:", response.data.user);
+      navigate("/");
+
     } catch (error) {
       console.error("Error sending data to server:", error);
     }
@@ -64,7 +70,7 @@ const SignUpModal = () => {
   const handleCloseMessage = () => {
     setMessageAnchorEl(null);
   };
-  
+
   const openMessagePopover = Boolean(messageAnchorEl);
   const messageId = openMessagePopover ? 'simple-popover' : undefined;
   return (
