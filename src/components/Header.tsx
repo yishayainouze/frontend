@@ -182,7 +182,7 @@ export default function Header() {
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             <h3>
-              {userLocalStorageData ? userLocalStorageData.name : "Guest"}
+              {userLocalStorageData ? "welcome "+  userLocalStorageData.name+"!" : "Guest"}
             </h3>
           </Typography>
           <Search>
