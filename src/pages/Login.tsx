@@ -33,6 +33,7 @@ const Login = () => {
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [submitClicked, setSubmitClicked] = React.useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -44,23 +45,23 @@ const Login = () => {
   const onSubmit = async (data: any) => {
     console.log(data);
     setFormData(data);
-  
+
     try {
       const response = await axios.post(
         "https://server-tpja.onrender.com/api/users/login",
         data
       );
-  
+
       if (response.data.error) {
         // Open the popover with the error message
         setAnchorEl(document.body);
       } else {
         // Close the popover
         setAnchorEl(null);
-  
+
         // Save user data in local storage
         localStorage.setItem(`userData`, JSON.stringify(response.data.user));
-  
+
         console.log("User data saved in localStorage:", response.data.user);
         navigate("/");
       }
@@ -68,17 +69,27 @@ const Login = () => {
       console.error("Error sending data to server:", error);
       // Open the popover with the error message
       setAnchorEl(document.body);
+    } finally {
+      // Set the state to true after the submit attempt
+      setSubmitClicked(true);
     }
   };
-  
 
   const openPopover = Boolean(anchorEl);
   const id = openPopover ? "simple-popover" : undefined;
 
   return (
     <div>
+      {submitClicked && (
+        <div>
+          {/* Render your component or redirect logic here */}
+        </div>
+      )}
+
       <div>
-        <Button onClick={handleOpen} style={{color:"white"}}>Login</Button>
+        <Button onClick={handleOpen} style={{ color: "white" }}>
+          Login
+        </Button>
         <Modal
           open={open}
           onClose={handleClose}
