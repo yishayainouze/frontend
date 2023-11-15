@@ -11,6 +11,7 @@ import Cart from "./pages/Cart";
 import Compare from "./pages/Compare";
 import Layout from "./pages/Layout";
 import { useSelector } from "react-redux";
+import IsraelMap from "./pages/Map";
 
 function App() {
   // Assuming that your state structure has a "global" property
@@ -30,6 +31,7 @@ function App() {
             <Route path="/Sign" element={<Sign />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/compare" element={<Compare />} />
+            <Route path="/Map" element={<IsraelMap />} />
           </Route>
         </Routes>
       </BrowserRouter>

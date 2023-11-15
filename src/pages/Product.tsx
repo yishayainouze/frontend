@@ -95,6 +95,8 @@ export default function Product() {
               Add to cart
             </Button>
             <Button size="small" onClick={handleCompare}>Compare</Button>
+            <Button size="small" onClick={()=> {navigate("/Map")}}>Available at these stores:</Button>
+
           </CardActions>
         </Card>
       )}

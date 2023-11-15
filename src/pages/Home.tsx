@@ -56,6 +56,7 @@ const Home = () => {
                   <div
                     onClick={() => {
                       dispatch(setCategory(card.category))
+                      
                       navigate("/products");
                     }}
                   >
