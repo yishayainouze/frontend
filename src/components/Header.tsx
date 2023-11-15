@@ -18,6 +18,8 @@ import Login from '../pages/Login';
 import SignUpModal from '../pages/Sign';
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { GlobalState } from '../state';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -67,6 +69,8 @@ export default function Header() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const storedUserData = localStorage.getItem('userData');
   const navigate = useNavigate()
+
+  const {cart} = useSelector((state : {global: GlobalState}) => state.global)
   // Check if there's any stored data
   if (storedUserData) {
     // Parse the stored JSON data
@@ -187,7 +191,7 @@ export default function Header() {
               <SignUpModal />
               <Login />
             <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={()=> navigate("/cart")}>
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={cart ? cart.length : 0} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
