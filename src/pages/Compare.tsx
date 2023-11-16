@@ -1,7 +1,7 @@
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { GlobalState, Product } from "../state";
+import { GlobalState, Product, setCart, setCompare } from "../state";
 import {
   Box,
   Container,
@@ -11,13 +11,23 @@ import {
   CardMedia,
   CardActions,
   CardContent,
+  Button,
 } from "@mui/material";
 
 
 const Compare = () => {
   const navigate = useNavigate();
-  const {compare} = useSelector((state: {global: GlobalState}) => state.global)
+  const dispatch  = useDispatch()
+  const {compare, cart} = useSelector((state: {global: GlobalState}) => state.global)
   console.log(compare);
+
+  const addToCart = (card: any) => {
+    let temp = [...cart, card];
+    console.log(temp);
+    dispatch(setCart(temp));
+    dispatch(setCompare([]))
+    navigate("/cart");
+  };
   
   return (
     <div>
@@ -80,7 +90,7 @@ const Compare = () => {
                         </Typography>
                       </CardContent>
                       <CardActions>
-                        
+                      <Button variant="outlined" onClick={()=> addToCart(card)}>Choose</Button>
                       </CardActions>
                     </Card>
                   </Grid>

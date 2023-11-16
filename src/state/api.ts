@@ -14,13 +14,12 @@ export const api = createApi({
       query: (id) => `api/products/${id}`,
       providesTags: ["Products"],
     }),
-    setClicks: build.query({
+    setClicks: build.mutation({
       query: (arg: any) => ({
         url: `api/products/${arg.id}`,
         method: "PUT",
         body: arg.product,
       }),
-      providesTags: ["Products"],
     }),
     getUsers: build.query({
       query: () => "api/users",
@@ -76,7 +75,7 @@ export const api = createApi({
 export const {
   useGetProductsQuery,
   useGetProductQuery,
-  useSetClicksQuery,
+  useSetClicksMutation,
   useGetUsersQuery,
   useGetUserQuery,
   useUpdateUserQuery,
