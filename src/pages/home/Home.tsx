@@ -1,41 +1,116 @@
+import "./Home.css";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import  { GlobalState, setCategory } from "../state";
+import { setCategory } from "../../state";
+import { Box, Container, Typography, Grid } from "@mui/material";
 import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-} from "@mui/material";
-import { useGetCategoriesQuery } from "../state/api";
+  useGetCategoriesQuery,
+  useGetProductsQuery,
+  useSetClicksMutation,
+} from "../../state/api";
 import Box2 from "@mui/joy/Box";
 import Card2 from "@mui/joy/Card";
 import CardCover2 from "@mui/joy/CardCover";
 import CardContent2 from "@mui/joy/CardContent";
 import Typography2 from "@mui/joy/Typography";
 import { useDispatch } from "react-redux";
-import './Home.css'
+import _ from "lodash";
+import { useState } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const data = useSelector(
-  //   (state: { global: GlobalState }) => state.global.products
-  // );
-  // console.log(data);
 
-  //state-filter
+  const [clickInfo, setClickInfo] = useState({ id: "", product: {} });
+
+  const [updateProduct] = useSetClicksMutation();
+
+  const handleClicks =  async () => {
+    console.log(clickInfo, "info");
+    await updateProduct({ id: clickInfo.id, product: clickInfo.product });
+  };
 
   const { data: categories, error } = useGetCategoriesQuery() || []; //categories
+  const { data: products } = useGetProductsQuery({}) || []; //products
   if (error) {
     // Handle the error, e.g., display an error message
     return <div>Error loading categories</div>;
   }
 
   //filter
+  const topCategories = categories
+    ? _.sortBy(categories, "numberOfClicks").slice(0, 3)
+    : [];
+
+  const topProducts = products
+    ? _.sortBy(products, "numberOfClicks").slice(0, 1)
+    : [];
+
+  console.log(topProducts);
 
   return (
     <div style={{ backgroundColor: "#87CEEB" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "80%",
+            height: "10vh",
+            background: "yellow",
+            marginTop: "4rem",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            {categories &&
+              topCategories?.map((c: any) => {
+                return (
+                  <div
+                    style={{
+                      height: "10vh",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    key={Date.now() * Math.random()}
+                  >
+                    {c.category}
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "6rem",
+        }}
+      >
+        <div
+          style={{
+            width: "40vw",
+            background: "coral",
+            height: "4rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <h2> Top Product: {topProducts ? topProducts[0]?.name : ""}</h2>
+        </div>
+      </div>
       <Box
         sx={{
           pt: 8,
@@ -60,8 +135,14 @@ const Home = () => {
                 <Grid item key={Date.now() * i} xs={12} sm={6} md={4}>
                   <div
                     onClick={() => {
-                      dispatch(setCategory(card.category))
-                      
+                      dispatch(setCategory(card.category));
+                      let temp = card;
+                      temp = { ...card, numberOfClicks: card?.numOfClicks + 1 };
+                      setClickInfo((prev) => {
+                        console.log(prev, "prev");
+                        return { id: String(temp._id), product: temp };
+                      });                 
+                      handleClicks();
                       navigate("/products");
                     }}
                   >

@@ -2,7 +2,7 @@ import "./App.css";
 import { GlobalState } from "./state";
 import { CssBaseline } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import Product from "./pages/Product";
 import Products from "./pages/Products";
 import Login from "./pages/Login";
