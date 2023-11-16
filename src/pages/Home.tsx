@@ -1,12 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import  { GlobalState, setCategory } from "../state";
-import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-} from "@mui/material";
+import { GlobalState, setCategory } from "../state";
+import { Box, Container, Typography, Grid } from "@mui/material";
 import { useGetCategoriesQuery } from "../state/api";
 import Box2 from "@mui/joy/Box";
 import Card2 from "@mui/joy/Card";
@@ -14,6 +9,7 @@ import CardCover2 from "@mui/joy/CardCover";
 import CardContent2 from "@mui/joy/CardContent";
 import Typography2 from "@mui/joy/Typography";
 import { useDispatch } from "react-redux";
+import _ from "lodash"
 
 const Home = () => {
   const navigate = useNavigate();
@@ -30,6 +26,9 @@ const Home = () => {
     // Handle the error, e.g., display an error message
     return <div>Error loading categories</div>;
   }
+
+  const topCategories = categories? _.sortBy(categories, "numberOfClicks").slice(0,3): []
+
 
   //filter
 
@@ -59,8 +58,8 @@ const Home = () => {
                 <Grid item key={Date.now() * i} xs={12} sm={6} md={4}>
                   <div
                     onClick={() => {
-                      dispatch(setCategory(card.category))
-                      
+                      dispatch(setCategory(card.category));
+
                       navigate("/products");
                     }}
                   >
@@ -137,6 +136,38 @@ const Home = () => {
           </Grid>
         </Container>
       </Box>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "80%",
+            height: "10vh",
+            background: "yellow",
+            marginBottom: "4rem",
+          }}
+        >
+          <div style={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center"
+          }}>
+            {categories &&
+              topCategories?.map((c: any) => {
+                return <div style={{
+                  height: "10vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}>{c.category}</div>;
+              })}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
