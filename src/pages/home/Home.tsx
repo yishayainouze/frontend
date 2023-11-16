@@ -51,11 +51,17 @@ const Home = () => {
           style={{
             width: '80%',
             height: '10vh',
-            background: '#3498db', // גוון כחול
-            marginTop: '4rem',
-            borderRadius: '5rem',
-            boxShadow: "inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0,0,0,0)",
-            WebkitBoxShadow: "inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0,0,0,0)",
+            background: '#BDE0C0', // Gradient blue tone
+            margin: '1.5rem auto', // Centered horizontally
+            borderRadius: '20px', // Rounded corners
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Subtle shadow
+            display: 'flex',
+            justifyContent: 'center', // Center content horizontally
+            alignItems: 'center', // Center content vertically
+            padding: '1rem', // Internal spacing
+            color: '#ffffff', // Text color
+            fontSize: '1.2rem', // Text size
+            textShadow: '1px 1px 2px #000', // Text shadow for contrast
           }}
         >
           <div
@@ -65,6 +71,7 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               flexWrap: 'wrap', // Allow items to wrap
+
             }}
           >
             <h2 style={{ color: '#fff', margin: '0 1rem' }}>Popular Categories:</h2>
@@ -80,7 +87,7 @@ const Home = () => {
                       lineHeight: "10vh", // Matching line height with the container's height
                       padding: '0.5rem',
                       margin: '0.5rem',
-                      maxWidth: '150px',
+                      maxWidth: '170px',
                     }}
                     key={Date.now() * Math.random()}
                   >
@@ -104,36 +111,45 @@ const Home = () => {
             WebkitBoxShadow: "-10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0)",
             boxShadow: "-10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0)",
             width: '40vw',
-            background: '#D0D0D0', // גוון אפור כהה יותר
+            background: '#8FBC8F', // גוון אפור כהה יותר
             height: '4rem',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: '10px', // רינועים עגולים
             color: '#333', // צבע טקסט שחור כהה
-
           }}
         >
-      <h2> 
-  Popular Product: 
-  {topProducts ? 
-    <span style={{
-      textShadow: "0 -1px 2px #FFF, 0 -1px 4px #ff0, 0 -5px 10px #ff8000, 0 -9px 20px #F00"
-    }}>
-        {" " +topProducts[0]?.name}
-    </span> 
-    : "     "
-  }
-</h2>
+          <h2>
+            Popular Product:
+            {topProducts ?
+              <span style={{
+                // textShadow: "0 -1px 2px #FFF, 0 -1px 4px #ff0, 0 -5px 10px #ff8000, 0 -9px 20px #F00"
+              }}>
+                {" " + topProducts[0]?.name}
+              </span>
+              : "     "
+            }
+          </h2>
 
           <br />
           <img
-            src={topProducts[0]?.commonAttributes.imageURL}
-            alt="top"
-            height="50px"
-            width="50px"
-            style={{ margin: '15px' }}
-          />        </div>
+  src={topProducts[0]?.commonAttributes.imageURL}
+  alt="top"
+  height="45px"
+  width="45px"
+  style={{
+    margin: '15px',
+    border: '2px solid #FFFFFF', // White border for contrast
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.15)', // Soft shadow for depth
+    padding: '3px', // Small padding to create a layer effect
+    backgroundColor: '#FFFFFF', // White background for the image
+    borderRadius: '10px', // Rounded corners
+  }}
+/>
+
+
+        </div>
       </div>
       <Box
         sx={{

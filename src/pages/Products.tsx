@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { GlobalState, Product, setCompare, setProductId } from "../state";
 import {
   Box,

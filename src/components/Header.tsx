@@ -190,7 +190,7 @@ export default function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+<AppBar position="static" sx={{ backgroundColor: ' #455A64' }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -232,11 +232,7 @@ export default function Header() {
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            ></IconButton>
+           
             <IconButton
               size="large"
               edge="end"
