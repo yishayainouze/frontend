@@ -38,7 +38,7 @@ const Home = () => {
     : [];
 
   return (
-    <div style={{ backgroundColor: "#87CEEB" }}>
+    <div style={{ backgroundColor: "#F0F0F0" }}>
       <div
         style={{
           display: "flex",
@@ -46,12 +46,14 @@ const Home = () => {
           alignItems: "center",
         }}
       >
-        <div
-          style={{
-            width: "80%",
-            height: "10vh",
-            background: "yellow",
-            marginTop: "4rem",
+        
+         <div
+        style={{
+          width: '80%',
+          height: '10vh',
+          background: '#3498db', // גוון כחול
+          marginTop: '4rem',
+          borderRadius : '5rem',
           }}
         >
           <div
@@ -60,7 +62,8 @@ const Home = () => {
               justifyContent: "space-around",
               alignItems: "center",
             }}
-          >
+            >
+            <h2>Top Categories:</h2>
             {categories &&
               topCategories?.map((c: any) => {
                 return (
@@ -89,15 +92,18 @@ const Home = () => {
         }}
       >
         <div
-          style={{
-            width: "40vw",
-            background: "coral",
-            height: "4rem",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+      style={{
+        width: '40vw',
+        background: '#D0D0D0', // גוון אפור כהה יותר
+        height: '4rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '10px', // רינועים עגולים
+        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // יוצר צל קל
+        color: '#333', // צבע טקסט שחור כהה
+      }}
+    >
           <h2> Top Product: {topProducts ? topProducts[0]?.name : ""}</h2>
         </div>
       </div>
