@@ -26,8 +26,11 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+interface LoginProps {
+  onLoginSuccess: (userData: any) => void;
+}
 
-const Login = () => {
+const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
@@ -58,13 +61,15 @@ const Login = () => {
       } else {
         // Close the popover
         setAnchorEl(null);
-
+        setOpen(false);
         // Save user data in local storage
         localStorage.setItem(`userData`, JSON.stringify(response.data.user));
 
+        // Update the user state in the Header component
+        onLoginSuccess(response.data.user);
+
         console.log("User data saved in localStorage:", response.data.user);
         navigate("/");
-
       }
     } catch (error) {
       console.error("Error sending data to server:", error);
@@ -78,6 +83,8 @@ const Login = () => {
 
   const openPopover = Boolean(anchorEl);
   const id = openPopover ? "simple-popover" : undefined;
+
+
 
   return (
     <div>

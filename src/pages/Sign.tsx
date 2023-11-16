@@ -15,7 +15,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Popover from "@mui/material/Popover";
 
-const SignUpModal = () => {
+interface SignUpModalProps {
+  open: boolean;
+  onSignUpSuccess: (userData: any) => void;
+}
+
+
+const SignUpModal: React.FC<SignUpModalProps> = ({ onSignUpSuccess }) => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [open, setOpen] = useState(false);
@@ -23,8 +29,9 @@ const SignUpModal = () => {
   const [messageAnchorEl, setMessageAnchorEl] = useState(null);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  const handleClose = () => {
+    setOpen(false);
+  };
   const onSubmit = async (data: any) => {
     // console.log(data);
     const {
@@ -54,12 +61,16 @@ const SignUpModal = () => {
         "https://server-tpja.onrender.com/api/users/register",
         dataToServerAddUser
       );
-      setMessageAnchorEl(document.body as any);
+      setMessageAnchorEl(document.body as unknown as any);
       console.log(response.data);
       // Save user data in local storage
       localStorage.setItem(`userData`, JSON.stringify(response.data.user));
 
       console.log("User data saved in localStorage:", response.data.user);
+      setOpen(false);
+
+      // onSSuccess(response.data.user);
+
       navigate("/");
 
     } catch (error) {
@@ -150,7 +161,7 @@ const SignUpModal = () => {
                         id="username"
                         label="User Name between 3 and 30 characters"
                         autoFocus
-                        {...register('username')} // שימוש ב'username' כאן
+                        {...register('username')} 
                       />
                     </Grid>
                     <Grid item xs={12}>

@@ -45,33 +45,44 @@ const Products = () => {
   const [filterMinPrice, setFilterMinPrice] = useState(0);
   const [filterMaxPrice, setFilterMaxPrice] = useState(Infinity);
 
-  
-  let filteredProducts = products ? products.filter((p: Product) => {
-    const price = p.commonAttributes.price;
-    return p.category === curCategory &&
-           price >= filterMinPrice &&
-           price <= (filterMaxPrice === Infinity ? price : filterMaxPrice);
-  }) : [];  const categoryAttributes = filteredProducts.map((p: any) => p.categoryAttributes);
-  const categoryAttributeNames = categoryAttributes.length > 0 ? Object.keys(categoryAttributes[0]) : [];
-
+  let filteredProducts = products
+    ? products.filter((p: Product) => {
+        const price = p.commonAttributes.price;
+        return (
+          p.category === curCategory &&
+          price >= filterMinPrice &&
+          price <= (filterMaxPrice === Infinity ? price : filterMaxPrice)
+        );
+      })
+    : [];
+  const categoryAttributes = filteredProducts.map(
+    (p: any) => p.categoryAttributes
+  );
+  const categoryAttributeNames =
+    categoryAttributes.length > 0 ? Object.keys(categoryAttributes[0]) : [];
 
   if (filter === "price") {
     filteredProducts = sortBy(filteredProducts, "commonAttributes.price");
   }
   if (filter === categoryAttributeNames[0]) {
-
     console.log(categoryAttributeNames[0]);
-    filteredProducts = sortBy(filteredProducts,"categoryAttributes."+ categoryAttributeNames[0]);
+    filteredProducts = sortBy(
+      filteredProducts,
+      "categoryAttributes." + categoryAttributeNames[0]
+    );
     console.log("filer");
     console.log(filteredProducts);
   }
   if (filter === categoryAttributeNames[1]) {
-    filteredProducts = sortBy(filteredProducts,"categoryAttributes."+ categoryAttributeNames[1]);
+    filteredProducts = sortBy(
+      filteredProducts,
+      "categoryAttributes." + categoryAttributeNames[1]
+    );
     console.log("filter 1");
 
     console.log(filteredProducts);
   }
-  
+
   const applyPriceFilter = () => {
     setFilterMinPrice(tempMinPrice);
     setFilterMaxPrice(tempMaxPrice);
@@ -81,8 +92,8 @@ const Products = () => {
   // תשנה את products ל-filteredProducts כדי להציג את המוצרים הממויינים
   products = filteredProducts;
 
-  products = products? products.filter((p: any) => p.category == curCategory)
-
+  products = products
+    ? products.filter((p: any) => p.category == curCategory)
     : [];
 
   //lodash  products =  _.sortBy(products, filter)
@@ -107,11 +118,13 @@ const Products = () => {
               Products
             </Typography>
           </Container>
-          <div style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <div
               style={{
                 display: "flex",
@@ -165,9 +178,12 @@ const Products = () => {
                   <Grid item key={card.id} xs={12} sm={6} md={4}>
                     <Card sx={{ maxWidth: 345 }}>
                       <CardMedia
-                        sx={{ height: 140 }}
+                        sx={{
+                          height: "300px",
+                          objectFit: "fill", // or "contain" based on your preference
+                        }}
                         image={card.commonAttributes.imageURL}
-                        title="green iguana"
+                        title="product picture"
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h6" component="div">
