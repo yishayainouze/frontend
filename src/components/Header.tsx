@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -21,7 +22,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { GlobalState } from '../state';
 import { Button } from '@mui/base';
-import { Logout } from '@mui/icons-material';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -63,24 +63,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const [userLocalStorageData, setUserLocalStorageData] = React.useState<any>(null);
-  const [signUpModalOpen, setSignUpModalOpen] = React.useState(false);
+  
+  const [userLocalStorageData, setUserLocalStorageData] =
+    React.useState<any>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
+    React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
   const storedUserData = localStorage.getItem('userData');
-  const navigate = useNavigate();
-
-  const handleLoginSuccess = (userData: any) => {
-    setUserLocalStorageData(userData);
-  };
-
-  const handleSignUpSuccess = (userData: any) => {
-    setSignUpModalOpen(false); // Close the SignUpModal
-    setUserLocalStorageData(userData); // Update the user data in the header
-
-  };
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     const storedUserData = localStorage.getItem(`userData`);
@@ -89,13 +82,18 @@ export default function Header() {
       setUserLocalStorageData(userData);
     }
   }, []);
-
-  const { cart } = useSelector((state: { global: GlobalState }) => state.global);
-
-  const handleLogout = () => {
-    localStorage.removeItem(`userData`);
-    setUserLocalStorageData(null); // Update state when the user logs out
-  };
+  const {cart} = useSelector((state : {global: GlobalState}) => state.global)
+  // Check if there's any stored data
+  if (storedUserData) {
+    // Parse the stored JSON data
+    const userData = JSON.parse(storedUserData);
+  const{name} = userData
+    // Now you can use the user data as needed
+    console.log('User data from localStorage:', userData);
+  } else {
+    // Handle the case when there's no user data in localStorage
+    console.log('No user data found in localStorage');
+  }
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -112,6 +110,10 @@ export default function Header() {
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem(`userData`);
   };
 
   const menuId = "primary-search-account-menu";
@@ -153,8 +155,8 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+      <MenuItem >
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit" >
           <Badge badgeContent={4} color="error">
             <ShoppingCartIcon />
           </Badge>
@@ -196,7 +198,7 @@ export default function Header() {
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             <h3>
-              {userLocalStorageData ? `Welcome ${userLocalStorageData.name}!` : "Guest"}
+              {userLocalStorageData ? "welcome "+  userLocalStorageData.name+"!" : "Guest"}
             </h3>
           </Typography>
           <Search>
@@ -211,10 +213,11 @@ export default function Header() {
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <SignUpModal open={signUpModalOpen} onSignUpSuccess={handleSignUpSuccess} />
-            <Login onLoginSuccess={handleLoginSuccess} />
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={() => navigate("/cart")}>
+              <SignUpModal />
+              <Login />
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={()=> navigate("/cart")}>
               <Badge badgeContent={cart ? cart.length : 0} color="error">
+
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
@@ -229,7 +232,7 @@ export default function Header() {
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={() => navigate("/")}
+              onClick={()=> navigate("/")}
               color="inherit"
             >
               <HomeIcon />
@@ -259,17 +262,17 @@ export default function Header() {
             </IconButton>
           </Box>
           <Button
-            color="inherit"
-            onClick={handleLogout}
-            style={{
-              marginLeft: "20px",
-              backgroundColor: "white", 
-              borderRadius: "5px", 
-              padding: "5px 10px", 
-            }}
-          >
-            Sign Out
-          </Button>
+  color="inherit"
+  onClick={handleLogout}
+  style={{
+    marginLeft: "20px",
+    backgroundColor: "white", // צבע רקע
+    borderRadius: "5px", // רינועים מעטים
+    padding: "5px 10px", // מרווחים פנימה
+  }}
+>
+  Sign Out
+</Button>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
