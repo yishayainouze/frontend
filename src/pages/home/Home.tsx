@@ -46,14 +46,16 @@ const Home = () => {
           alignItems: "center",
         }}
       >
-        
-         <div
-        style={{
-          width: '80%',
-          height: '10vh',
-          background: '#3498db', // גוון כחול
-          marginTop: '4rem',
-          borderRadius : '5rem',
+
+        <div
+          style={{
+            width: '80%',
+            height: '10vh',
+            background: '#3498db', // גוון כחול
+            marginTop: '4rem',
+            borderRadius: '5rem',
+            // padding: '1rem', // Added padding
+
           }}
         >
           <div
@@ -61,9 +63,11 @@ const Home = () => {
               display: "flex",
               justifyContent: "space-around",
               alignItems: "center",
+              textAlign:"center",
+              flexWrap: 'wrap', // Allow items to wrap
             }}
-            >
-            <h2>Top Categories:</h2>
+          >
+    <h2 style={{ color: '#fff', margin: '0 1rem' }}>Popular Categories:</h2>
             {categories &&
               topCategories?.map((c: any) => {
                 return (
@@ -73,6 +77,10 @@ const Home = () => {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
+                      lineHeight: "10vh", // Matching line height with the container's height
+                      padding: '0.5rem',
+                      margin: '0.5rem',
+                      maxWidth: '150px',
                     }}
                     key={Date.now() * Math.random()}
                   >
@@ -92,20 +100,27 @@ const Home = () => {
         }}
       >
         <div
-      style={{
-        width: '40vw',
-        background: '#D0D0D0', // גוון אפור כהה יותר
-        height: '4rem',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: '10px', // רינועים עגולים
-        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // יוצר צל קל
-        color: '#333', // צבע טקסט שחור כהה
-      }}
-    >
-          <h2> Top Product: {topProducts ? topProducts[0]?.name : ""}</h2>
-        </div>
+          style={{
+            width: '40vw',
+            background: '#D0D0D0', // גוון אפור כהה יותר
+            height: '4rem',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: '10px', // רינועים עגולים
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // יוצר צל קל
+            color: '#333', // צבע טקסט שחור כהה
+          }}
+        >
+          <h2> Popular Product: {topProducts ? topProducts[0]?.name + "     " : "     "}</h2>
+          <br />
+          <img
+            src={topProducts[0]?.commonAttributes.imageURL}
+            alt="top"
+            height="50px"
+            width="50px"
+            style={{ margin: '15px' }}
+          />        </div>
       </div>
       <Box
         sx={{
