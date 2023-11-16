@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { GlobalState, Product, setCart } from "../state";
 import {
   Box,
@@ -13,28 +12,9 @@ import {
   CardContent,
 } from "@mui/material";
 
-type dataToServerAddUser = {
-  user_id: any;
-  username: any;
-  password: any;
-  name: any;
-  email: any;
-  address: any;
-  cart: never[];
-}
+
 
 const Cart = () => {
-  const navigate = useNavigate();
-  const localStorageData = localStorage.getItem('userData')
-  // const : {
-  //   user_id,
-  //   username,
-  //   password,
-  //   name,
-  //   email,
-  //   address,
-    
-  // } = localStorageData;
   const { cart } = useSelector(
     (state: { global: GlobalState }) => state.global
   );

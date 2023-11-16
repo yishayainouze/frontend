@@ -18,11 +18,12 @@ interface SignUpModalProps {
   open: boolean;
   onSignUpSuccess: (userData: any) => void;
 }
-const SignUpModal: React.FC<SignUpModalProps> = ({ onSignUpSuccess }) => {
+const SignUpModal: React.FC<SignUpModalProps> = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState(null);
+  console.log(formData);
   const [messageAnchorEl, setMessageAnchorEl] = useState(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {

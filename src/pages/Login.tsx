@@ -25,10 +25,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-interface LoginProps {
-  onLoginSuccess: (userData: any) => void;
-}
-const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
+
+const Login = (onLoginSuccess: any ) => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
