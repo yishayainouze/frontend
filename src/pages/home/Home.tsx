@@ -1,33 +1,25 @@
-import "./Home.css";
 import { useNavigate } from "react-router-dom";
-import { setCategory } from "../../state";
 import { Box, Container, Typography, Grid } from "@mui/material";
-import {
-  useGetCategoriesQuery,
-  useGetProductsQuery,
-  useSetClicksMutation,
-} from "../../state/api";
 import Box2 from "@mui/joy/Box";
 import Card2 from "@mui/joy/Card";
 import CardCover2 from "@mui/joy/CardCover";
 import CardContent2 from "@mui/joy/CardContent";
 import Typography2 from "@mui/joy/Typography";
 import { useDispatch } from "react-redux";
+import "./Home.css";
+import { useGetCategoriesQuery, useGetProductsQuery } from "../../state/api";
+import { setCategory } from "../../state";
 import _ from "lodash";
-import { useState } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const data = useSelector(
+  //   (state: { global: GlobalState }) => state.global.products
+  // );
+  // console.log(data);
 
-  const [clickInfo, setClickInfo] = useState({ id: "", product: {} });
-
-  const [updateProduct] = useSetClicksMutation();
-
-  const handleClicks =  async () => {
-    console.log(clickInfo, "info");
-    await updateProduct({ id: clickInfo.id, product: clickInfo.product });
-  };
+  //state-filter
 
   const { data: categories, error } = useGetCategoriesQuery() || []; //categories
   const { data: products } = useGetProductsQuery({}) || []; //products
@@ -44,8 +36,6 @@ const Home = () => {
   const topProducts = products
     ? _.sortBy(products, "numberOfClicks").slice(0, 1)
     : [];
-
-  console.log(topProducts);
 
   return (
     <div style={{ backgroundColor: "#87CEEB" }}>
@@ -129,20 +119,21 @@ const Home = () => {
           </Typography>
         </Container>
         <Container sx={{ py: 8, width: "80%", margin: "0 auto" }} maxWidth="md">
-          <Grid container spacing={4}>
-            {categories && // category - price
+          <Grid container justifyContent="center">
+            {categories &&
               categories.map((card: any, i: number) => (
-                <Grid item key={Date.now() * i} xs={12} sm={6} md={4}>
+                <Grid
+                  item
+                  key={Date.now() * i}
+                  xs={6}
+                  sm={3}
+                  sx={{ marginX: "15px", marginY: "15px" }}
+                >
+                  {" "}
+                  {/* הגדרת ארבע תמונות בכל שורה */}
                   <div
                     onClick={() => {
                       dispatch(setCategory(card.category));
-                      let temp = card;
-                      temp = { ...card, numberOfClicks: card?.numOfClicks + 1 };
-                      setClickInfo((prev) => {
-                        console.log(prev, "prev");
-                        return { id: String(temp._id), product: temp };
-                      });                 
-                      handleClicks();
                       navigate("/products");
                     }}
                   >
@@ -171,10 +162,10 @@ const Home = () => {
                         variant="outlined"
                         sx={{
                           minHeight: "280px",
-                          width: 320,
+                          width: "100%", // הגדרת רוחב התמונה ל-100% של התא
                           backgroundColor: "#fff",
                           borderColor: "#000",
-                          backgroundImage: `url(${card.img})`, // Set background image
+                          backgroundImage: `url(${card.img})`,
                           backgroundSize: "cover",
                           backgroundPosition: "center",
                         }}

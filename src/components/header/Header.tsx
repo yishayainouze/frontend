@@ -15,12 +15,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import Login from '../pages/Login';
-import SignUpModal from '../pages/Sign';
+import Login from '../../pages/Login';
+import SignUpModal from '../../pages/Sign';
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { GlobalState } from '../state';
+import { GlobalState } from '../../state';
 import { Button } from '@mui/base';
 import { Logout } from '@mui/icons-material';
 
