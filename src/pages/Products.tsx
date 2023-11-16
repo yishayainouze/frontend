@@ -45,41 +45,33 @@ const Products = () => {
   const [filterMinPrice, setFilterMinPrice] = useState(0);
   const [filterMaxPrice, setFilterMaxPrice] = useState(Infinity);
 
-  let filteredProducts = products
-    ? products.filter((p: Product) => {
-        const price = p.commonAttributes.price;
-        return (
-          p.category === curCategory &&
-          price >= filterMinPrice &&
-          price <= (filterMaxPrice === Infinity ? price : filterMaxPrice)
-        );
-      })
-    : [];
-  const categoryAttributes = filteredProducts.map(
-    (p: any) => p.categoryAttributes
-  );
-  console.log(categoryAttributes);
-  const categoryAttributeNames =
-    categoryAttributes.length > 0 ? Object.keys(categoryAttributes[0]) : [];
-  console.log(categoryAttributeNames);
+  
+  let filteredProducts = products ? products.filter((p: Product) => {
+    const price = p.commonAttributes.price;
+    return p.category === curCategory &&
+           price >= filterMinPrice &&
+           price <= (filterMaxPrice === Infinity ? price : filterMaxPrice);
+  }) : [];  const categoryAttributes = filteredProducts.map((p: any) => p.categoryAttributes);
+  const categoryAttributeNames = categoryAttributes.length > 0 ? Object.keys(categoryAttributes[0]) : [];
+
 
   if (filter === "price") {
     filteredProducts = sortBy(filteredProducts, "commonAttributes.price");
   }
   if (filter === categoryAttributeNames[0]) {
-    filteredProducts = sortBy(
-      filteredProducts,
-      "commonAttributes." + categoryAttributeNames[0]
-    );
+
+    console.log(categoryAttributeNames[0]);
+    filteredProducts = sortBy(filteredProducts,"categoryAttributes."+ categoryAttributeNames[0]);
+    console.log("filer");
     console.log(filteredProducts);
   }
   if (filter === categoryAttributeNames[1]) {
-    filteredProducts = sortBy(
-      filteredProducts,
-      "commonAttributes." + categoryAttributeNames[1]
-    );
+    filteredProducts = sortBy(filteredProducts,"categoryAttributes."+ categoryAttributeNames[1]);
+    console.log("filter 1");
+
     console.log(filteredProducts);
   }
+  
   const applyPriceFilter = () => {
     setFilterMinPrice(tempMinPrice);
     setFilterMaxPrice(tempMaxPrice);
@@ -88,8 +80,9 @@ const Products = () => {
 
   // תשנה את products ל-filteredProducts כדי להציג את המוצרים הממויינים
   products = filteredProducts;
-  products = products
-    ? products.filter((p: any) => p.category == curCategory)
+
+  products = products? products.filter((p: any) => p.category == curCategory)
+
     : [];
 
   //lodash  products =  _.sortBy(products, filter)
