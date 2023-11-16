@@ -1,0 +1,74 @@
+/* Header.css */
+
+/* סגנון כללי ל-AppBar */
+
+  .AppBar {
+    position: static;
+    background-color: green; /* צבע רקע כחול */
+  }
+  
+  /* סגנון ל-Toolbar */
+  .Toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* סגנון לכותרת */
+  .Typography {
+    display: none;
+  }
+  
+  /* סגנון לחיפוש */
+  .Search {
+    position: relative;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.15);
+    margin-right: 16px;
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .Search:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+  
+  /* תיבת החיפוש */
+  .StyledInputBase {
+    color: inherit;
+    width: 100%;
+  }
+  
+  /* לוגו חיפוש */
+  .SearchIconWrapper {
+    padding: 0 16px;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* סגנון לכפתורים */
+  .IconButton {
+    color: inherit;
+  }
+  
+  /* סגנון לכפתור התפריט */
+  .MenuIconButton {
+    margin-right: 16px;
+  }
+  
+  /* סגנון לכפתורים בתפריט המובייל */
+  .MobileMenuIconButton {
+    display: none;
+  }
+  
+  @media (max-width: 600px) {
+    .Typography {
+      display: block;
+    }
+    .MobileMenuIconButton {
+      display: block;
+    }
+  }
+  

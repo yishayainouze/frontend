@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux';
 import { GlobalState } from '../state';
 import { Button } from '@mui/base';
 import { Logout } from '@mui/icons-material';
+import "./Header.css";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -75,7 +76,15 @@ export default function Header() {
 
   const storedUserData = localStorage.getItem('userData');
   const navigate = useNavigate()
-
+  const appBarStyle = {
+    backgroundColor: '#303f9f', // צבע רקע כחול
+    boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)', // צללית עדינה להדגשת ה-AppBar
+    color: 'white', // צבע הטקסט
+    borderBottom: '2px solid #1976d2', // קו תחתון להדגשה
+    transition: 'background-color 0.3s ease', // אפקט מעבר חלק לצבע הרקע
+    // ניתן להוסיף כאן עוד סגנונות לפי הצורך
+  };
+  
   React.useEffect(() => {
     const storedUserData = localStorage.getItem(`userData`);
     if (storedUserData) {
@@ -181,7 +190,7 @@ export default function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={appBarStyle}>
         <Toolbar>
           <IconButton
             size="large"

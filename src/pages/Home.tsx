@@ -54,50 +54,46 @@ const Home = () => {
           </Typography>
         </Container>
         <Container sx={{ py: 8, width: "80%", margin: "0 auto" }} maxWidth="md">
-          <Grid container spacing={4}>
-            {categories && // category - price
-              categories.map((card: any, i: number) => (
-                <Grid item key={Date.now() * i} xs={12} sm={6} md={4}>
-                  <div
-                    onClick={() => {
-                      dispatch(setCategory(card.category))
-                      
-                      navigate("/products");
-                    }}
-                  >
-                    <Box2
-                      sx={{
-                        perspective: "1000px",
-                        transition: "transform 0.4s",
-                        "& > div, & > div > div": {
-                          transition: "inherit",
-                        },
-                        "&:hover": {
-                          "& > div": {
-                            transform: "rotateY(30deg)",
-                            "& > div:nth-child(2)": {
-                              transform:
-                                "scaleY(0.9) translate3d(20px, 30px, 40px)",
-                            },
-                            "& > div:nth-child(3)": {
-                              transform: "translate3d(45px, 50px, 40px)",
-                            },
-                          },
-                        },
-                      }}
-                    >
-                      <Card2
-                        variant="outlined"
-                        sx={{
-                          minHeight: "280px",
-                          width: 320,
-                          backgroundColor: "#fff",
-                          borderColor: "#000",
-                          backgroundImage: `url(${card.img})`, // Set background image
-                          backgroundSize: "cover",
-                          backgroundPosition: "center",
-                        }}
-                      >
+  <Grid container justifyContent="center">
+    {categories &&
+      categories.map((card: any, i: number) => (
+        <Grid item key={Date.now() * i} xs={6} sm={3} sx={{ marginX: "15px", marginY: "15px" }}> {/* הגדרת ארבע תמונות בכל שורה */}
+          <div onClick={() => {
+              dispatch(setCategory(card.category))
+              navigate("/products");
+            }}>
+            <Box2
+              sx={{
+                perspective: "1000px",
+                transition: "transform 0.4s",
+                "& > div, & > div > div": {
+                  transition: "inherit",
+                },
+                "&:hover": {
+                  "& > div": {
+                    transform: "rotateY(30deg)",
+                    "& > div:nth-child(2)": {
+                      transform: "scaleY(0.9) translate3d(20px, 30px, 40px)",
+                    },
+                    "& > div:nth-child(3)": {
+                      transform: "translate3d(45px, 50px, 40px)",
+                    },
+                  },
+                },
+              }}
+            >
+              <Card2
+                variant="outlined"
+                sx={{
+                  minHeight: "280px",
+                  width: "100%", // הגדרת רוחב התמונה ל-100% של התא
+                  backgroundColor: "#fff",
+                  borderColor: "#000",
+                  backgroundImage: `url(${card.img})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
                         <CardCover2
                           sx={{
                             border: "1px solid",
