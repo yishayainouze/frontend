@@ -14,7 +14,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import Popover from "@mui/material/Popover";
-
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -26,45 +25,42 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
-const Login = () => {
+interface LoginProps {
+  onLoginSuccess: (userData: any) => void;
+}
+const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [submitClicked, setSubmitClicked] = React.useState(false);
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-
   const onSubmit = async (data: any) => {
     console.log(data);
     setFormData(data);
-
     try {
       const response = await axios.post(
         "https://server-tpja.onrender.com/api/users/login",
         data
       );
-
       if (response.data.error) {
         // Open the popover with the error message
         setAnchorEl(document.body);
       } else {
         // Close the popover
         setAnchorEl(null);
-
+        setOpen(false);
         // Save user data in local storage
         localStorage.setItem(`userData`, JSON.stringify(response.data.user));
-
+        // Update the user state in the Header component
+        onLoginSuccess(response.data.user);
         console.log("User data saved in localStorage:", response.data.user);
         navigate("/");
-
       }
     } catch (error) {
       console.error("Error sending data to server:", error);
@@ -75,10 +71,8 @@ const Login = () => {
       setSubmitClicked(true);
     }
   };
-
   const openPopover = Boolean(anchorEl);
   const id = openPopover ? "simple-popover" : undefined;
-
   return (
     <div>
       {submitClicked && (
@@ -86,7 +80,6 @@ const Login = () => {
           {/* Render your component or redirect logic here */}
         </div>
       )}
-
       <div>
       <Button
   color="inherit"
@@ -94,7 +87,6 @@ const Login = () => {
   style={{
     marginLeft: "16px",
     marginRight: "10px",
-
     background: "linear-gradient(to bottom, #4CAF50, #45A049)",
     color: "white",
     borderRadius: "5px",
@@ -106,8 +98,6 @@ const Login = () => {
 >
   Login
 </Button>
-
-      
         <Modal
           open={open}
           onClose={handleClose}
@@ -190,7 +180,6 @@ const Login = () => {
           </Box>
         </Modal>
       </div>
-
       <Popover
         id={id}
         open={openPopover}
@@ -210,5 +199,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;
