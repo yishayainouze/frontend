@@ -281,10 +281,7 @@ export default function Header() {
     fontWeight: "bold", // משקל טקסט
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // צללית עדינה
     transition: "background-color 0.3s ease, box-shadow 0.3s ease",
-    "&:hover": {
-      backgroundColor: "#BDBDBD", // צבע רקע ב-hover
-      boxShadow: "0 3px 6px rgba(0, 0, 0, 0.2)" // צללית עמוקה יותר ב-hover
-    }
+    
   }}
 >
   Sign Out
