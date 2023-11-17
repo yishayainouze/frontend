@@ -73,22 +73,27 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ onSignUpSuccess }) => {
   const messageId = openMessagePopover ? 'simple-popover' : undefined;
   return (
     <div>
-    <Button
+   <Button
   color="inherit"
   onClick={handleOpen}
   style={{
-    background: "linear-gradient(to bottom, #3F51B5, #303F9F)", // צבע רקע שונה
+    background: "linear-gradient(to bottom, #5C6BC0, #3949AB)", // גווני כחול שונים
     borderRadius: "5px",
     padding: "10px 20px",
     color: "white",
     marginRight: "16px",
-    border: "none",
+    border: "1px solid #5C6BC0", // גבול כחול מתאים
     cursor: "pointer",
-    transition: "background 0.3s ease",
+    transition: "background 0.3s ease, transform 0.3s ease",
+    textShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)",
+    fontWeight: "bold",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+    
   }}
 >
   Sign Up
 </Button>
+
       <Modal
         open={open}
         onClose={handleClose}

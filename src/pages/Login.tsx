@@ -87,17 +87,22 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   style={{
     marginLeft: "16px",
     marginRight: "10px",
-    background: "linear-gradient(to bottom, #4CAF50, #45A049)",
+    background: "linear-gradient(to bottom, #1E88E5, #1565C0)", // כחולים מוארים
     color: "white",
     borderRadius: "5px",
     padding: "10px 20px",
-    border: "none",
+    border: "1px solid #1E88E5", // גבול כחול מתאים
     cursor: "pointer",
-    transition: "background 0.3s ease",
+    transition: "background 0.3s ease, transform 0.3s ease",
+    textShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)",
+    fontWeight: "bold",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+  
   }}
 >
   Login
 </Button>
+
         <Modal
           open={open}
           onClose={handleClose}

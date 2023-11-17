@@ -269,17 +269,28 @@ export default function Header() {
             </IconButton>
           </Box>
           <Button
-            color="inherit"
-            onClick={handleLogout}
-            style={{
-              marginLeft: "20px",
-              backgroundColor: "white", // צבע רקע
-              borderRadius: "5px", // רינועים מעטים
-              padding: "5px 10px", // מרווחים פנימה
-            }}
-          >
-            Sign Out
-          </Button>
+  color="inherit"
+  onClick={handleLogout}
+  style={{
+    marginLeft: "20px",
+    backgroundColor: "#E0E0E0", // צבע רקע ניטרלי
+    color: "#455A64", // צבע טקסט שמתאים לצבע העמוד
+    borderRadius: "5px", // רינועים מעטים
+    padding: "5px 10px", // מרווחים פנימה
+    border: "1px solid #B0BEC5", // גבול מתאים
+    fontWeight: "bold", // משקל טקסט
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // צללית עדינה
+    transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+    "&:hover": {
+      backgroundColor: "#BDBDBD", // צבע רקע ב-hover
+      boxShadow: "0 3px 6px rgba(0, 0, 0, 0.2)" // צללית עמוקה יותר ב-hover
+    }
+  }}
+>
+  Sign Out
+</Button>
+
+
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

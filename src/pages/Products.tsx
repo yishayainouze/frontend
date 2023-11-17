@@ -46,13 +46,13 @@ const Products = () => {
   const [filterMinPrice, setFilterMinPrice] = useState(0);
   const [filterMaxPrice, setFilterMaxPrice] = useState(Infinity);
 
-  
+
   let filteredProducts = products ? products.filter((p: Product) => {
     const price = p.commonAttributes.price;
     return p.category === curCategory &&
-           price >= filterMinPrice &&
-           price <= (filterMaxPrice === Infinity ? price : filterMaxPrice);
-  }) : [];  const categoryAttributes = filteredProducts.map((p: any) => p.categoryAttributes);
+      price >= filterMinPrice &&
+      price <= (filterMaxPrice === Infinity ? price : filterMaxPrice);
+  }) : []; const categoryAttributes = filteredProducts.map((p: any) => p.categoryAttributes);
   const categoryAttributeNames = categoryAttributes.length > 0 ? Object.keys(categoryAttributes[0]) : [];
 
 
@@ -62,17 +62,17 @@ const Products = () => {
   if (filter === categoryAttributeNames[0]) {
 
     console.log(categoryAttributeNames[0]);
-    filteredProducts = sortBy(filteredProducts,"categoryAttributes."+ categoryAttributeNames[0]);
+    filteredProducts = sortBy(filteredProducts, "categoryAttributes." + categoryAttributeNames[0]);
     console.log("filer");
     console.log(filteredProducts);
   }
   if (filter === categoryAttributeNames[1]) {
-    filteredProducts = sortBy(filteredProducts,"categoryAttributes."+ categoryAttributeNames[1]);
+    filteredProducts = sortBy(filteredProducts, "categoryAttributes." + categoryAttributeNames[1]);
     console.log("filter 1");
 
     console.log(filteredProducts);
   }
-  
+
   const applyPriceFilter = () => {
     setFilterMinPrice(tempMinPrice);
     setFilterMaxPrice(tempMaxPrice);
@@ -82,7 +82,7 @@ const Products = () => {
   // תשנה את products ל-filteredProducts כדי להציג את המוצרים הממויינים
   products = filteredProducts;
 
-  products = products? products.filter((p: any) => p.category == curCategory)
+  products = products ? products.filter((p: any) => p.category == curCategory)
 
     : [];
 
@@ -90,141 +90,141 @@ const Products = () => {
 
   return (
     <div style={{ backgroundColor: "#F0F0F0", minHeight: "93vh" }}>
-      <div>
-        <Box
-          sx={{
-            pt: 8,
-            pb: 6,
+      <Container maxWidth="sm" style={{ paddingTop: 32 }}>
+        <Typography
+          component="h1"
+          variant="h3"
+          align="center"
+          color="#1E88E5"
+          gutterBottom
+          style={{
+            fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+            fontWeight: 500,
+            fontStyle: 'italic',
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)'
           }}
         >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              Products
-            </Typography>
-          </Container>
-          <div style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}>
-            <div
-              style={{
-                display: "flex",
-                width: "50%",
-                justifyContent: "space-between",
-              }}
-            >
-              <Button
-                variant="outlined"
-                onClick={() => setFilter("price")} // לשנות לפי הפרמטר שברצונך
-              >
-                Sort by Price
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => setFilter(categoryAttributeNames[0])} // לשנות לפי הפרמטר שברצונך
-              >
-                Sort by {categoryAttributeNames[0]}
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => setFilter(categoryAttributeNames[1])} // לשנות לפי הפרמטר שברצונך
-              >
-                Sort by {categoryAttributeNames[1]}
-              </Button>
-            </div>
-          </div>
-          <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
-            <TextField
-              label="Min Price"
-              type="number"
-              variant="outlined"
-              value={tempMinPrice}
-              onChange={(e) => setTempMinPrice(Number(e.target.value))}
-            />
-            <TextField
-              label="Max Price"
-              type="number"
-              variant="outlined"
-              value={tempMaxPrice}
-              onChange={(e) => setTempMaxPrice(Number(e.target.value))}
-            />
-            <Button variant="contained" onClick={applyPriceFilter}>
-              Filter by Price Range
-            </Button>
-          </Box>
-          <Container sx={{ py: 8 }} maxWidth="md">
-            <Grid container spacing={4}>
-              {products &&
-                products.map((card: Product, i: number) => (
-                  <Grid item key={card.id} xs={12} sm={6} md={4}>
-                    <Card sx={{ maxWidth: 345 }}>
-                      <CardMedia
-                        sx={{ height: 140 }}
-                        image={card.commonAttributes.imageURL}
-                        title="green iguana"
-                      />
-                      <CardContent>
-                        <Typography gutterBottom variant="h6" component="div">
-                          {card.category}
-                        </Typography>
-                        <Typography
-                          gutterBottom
-                          variant="h5"
-                          component="div"
-                          sx={{ minHeight: 70 }}
-                        >
-                          {card.name}
-                        </Typography>
-                        <Typography
-                          gutterBottom
-                          variant="h5"
-                          component="div"
-                          sx={{ minHeight: 70 }}
-                        >
-                          {card.commonAttributes.price} $
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{ minHeight: 60 }}
-                        >
-                          {card.commonAttributes.description}
-                        </Typography>
-                      </CardContent>
+          {curCategory}
+        </Typography>
+      </Container>
 
-                      <CardActions>
-                        <Button
-                          onClick={() => {
-                            // if (compare?.length() > 0) {
-                            //   compare.push(card.name)
-                            //   dispatch(setCompare(compare))
-                            //   navigate("/compare")
-                            // } else {
-                            dispatch(setProductId(String(card.id)));
-                            navigate("/product");
-                            // }
-                          }}
-                          size="small"
-                        >
-                          View Product
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                ))}
-            </Grid>
-          </Container>
+      <Box sx={{ display: "flex", justifyContent: "flex-start", p: 2 }}>
+        {/* Filter and sort controls */}
+        <Box sx={{ display: "flex", flexDirection: "column", marginRight: 8 }}>
+  {/* Sort buttons with individual border */}
+  <Button
+    variant="outlined"
+    onClick={() => setFilter("price")}
+    sx={{ mb: 2, border: '2px solid #B0BEC5', borderRadius: '8px', fontWeight: 'bold' }}
+  >
+    Sort by Price
+  </Button>
+  <Button
+    variant="outlined"
+    onClick={() => setFilter(categoryAttributeNames[0])}
+    sx={{ mb: 2, border: '2px solid #B0BEC5', borderRadius: '8px', fontWeight: 'bold', minWidth: 200, textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}
+  >
+    Sort by {categoryAttributeNames[0]}
+  </Button>
+  <Button
+    variant="outlined"
+    onClick={() => setFilter(categoryAttributeNames[1])}
+    sx={{ mb: 2, border: '2px solid #B0BEC5', borderRadius: '8px', fontWeight: 'bold', minWidth: 200, textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}
+  >
+    Sort by {categoryAttributeNames[1]}
+  </Button>
+
+  <Box sx={{ display: "flex", flexDirection: "column", mb: 2, alignItems: "center" }}>
+    <Box sx={{ display: "flex", flexDirection: "row", mb: 2, alignItems: "center" }}>
+      <TextField
+        label="Min Price"
+        type="number"
+        variant="outlined"
+        value={tempMinPrice}
+        onChange={(e) => setTempMinPrice(Number(e.target.value))}
+        sx={{ marginRight: 2 }}
+      />
+      <TextField
+        label="Max Price"
+        type="number"
+        variant="outlined"
+        value={tempMaxPrice}
+        onChange={(e) => setTempMaxPrice(Number(e.target.value))}
+      />
+    </Box>
+    <Button
+      variant="contained"
+      style={{ backgroundColor: '#66BB6A' }} // Green color for the button
+      onClick={applyPriceFilter}
+    >
+      Filter by Price Range
+    </Button>
+  </Box>
+{/* </Box> */}
+
+
+
         </Box>
-      </div>
-    </div>
+
+        {/* Products Grid */}
+        <Container sx={{ py: 8 }} maxWidth="md">
+          <Grid container spacing={4}>
+            {products && products.map((card: Product, i: number) => (
+              <Grid item key={card.id} xs={12} sm={6} md={4}>
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardMedia
+                    sx={{ height: 140 }}
+                    image={card.commonAttributes.imageURL}
+                    title={card.name}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {card.category}
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      sx={{ minHeight: 70 }}
+                    >
+                      {card.name}
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      sx={{ minHeight: 70 }}
+                    >
+                      {card.commonAttributes.price} $
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ minHeight: 60 }}
+                    >
+                      {card.commonAttributes.description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      onClick={() => {
+                        dispatch(setProductId(String(card.id)));
+                        navigate("/product");
+                      }}
+                      size="small"
+                    >
+                      View Product
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+    </div >
   );
+
 };
 
 export default Products;
