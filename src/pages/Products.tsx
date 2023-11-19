@@ -80,14 +80,12 @@ const Products = () => {
     setFilter("priceRange"); // or any other logic to trigger re-render
   };
 
-  // תשנה את products ל-filteredProducts כדי להציג את המוצרים הממויינים
   products = filteredProducts;
 
   products = products ? products.filter((p: any) => p.category == curCategory)
 
     : [];
 
-  //lodash  products =  _.sortBy(products, filter)
 
   return (
     <div style={{ backgroundColor: "#F0F0F0", minHeight: "93vh" }}>
