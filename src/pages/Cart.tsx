@@ -18,7 +18,7 @@ const Cart = () => {
   const { cart } = useSelector(
     (state: { global: GlobalState }) => state.global
   );
-  console.log(cart +' line 21');
+  console.log(' cart: ' + cart);
   const dispatch = useDispatch()
 
   return (
@@ -82,8 +82,8 @@ const Cart = () => {
                           </Typography>
                         </CardContent>
                         <CardActions>
-                          <Button variant="outlined" color="error" onClick={()=> {
-                            const temp = cart.filter((p: any)=> p._id != card._id)
+                          <Button variant="outlined" color="error" onClick={() => {
+                            const temp = cart.filter((p: any) => p._id != card._id)
                             dispatch(setCart(temp))
                           }}>
                             Delete

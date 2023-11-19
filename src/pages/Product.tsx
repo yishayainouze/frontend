@@ -8,40 +8,33 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Badge from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 
 export default function Product() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let { productId, cart, compare } = useSelector(
+  const { productId, cart, compare } = useSelector(
     (state: { global: GlobalState }) => state.global
   );
 
   const { data: product } = useGetProductQuery(productId);
 
-
-  // const getLocalCart = () => {
-  //   const local = localStorage.getItem("cart");
-  //   const localData = local ? JSON.parse(local) : [];
-  //   return localData;
-  // };
-  const categoryAtt: any = product?.categoryAttributes
-  console.log(categoryAtt);
-
   const addToCart = () => {
     let temp = [...cart, product];
-    console.log(temp);
     dispatch(setCart(temp));
     navigate("/cart");
   };
 
   const addToCompare = () => {
     let temp = [...compare, product];
-    console.log(temp);
     dispatch(setCompare(temp));
     if (compare.length > 0) {
       navigate("/compare");
     } else {
-      navigate(-1)
+      navigate(-1);
     }
   };
 
@@ -58,7 +51,8 @@ export default function Product() {
       {product?.commonAttributes && (
         <Card
           sx={{
-            width: "70%",
+            width: "100%",
+            maxWidth: "800px",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           }}
         >
@@ -67,34 +61,92 @@ export default function Product() {
             height="300"
             image={product.commonAttributes.imageURL}
             alt={product.name}
+            sx={{
+              objectFit: "cover",
+              borderRadius: "8px",
+            }}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {product.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {product.commonAttributes.description}
-            </Typography>
-            <br/>
-            {categoryAtt && Object.entries(categoryAtt).map(([key, value]) => (
-              <Typography variant="body2" color="text.secondary" key={key}>
-                <strong>{`${key}`}</strong>: {`${value}`}
+              <Typography variant="h5" component="span" fontFamily="Your-Font-Here" color="primary" fontWeight="bold">
+                {product.name}
               </Typography>
-            ))}
+            </Typography>
+
+            <Typography variant="body2" color="text.secondary" fontFamily="Your-Font-Here">
+              <Typography component="span" fontSize="1rem">
+                {product.commonAttributes.description}
+              </Typography>
+            </Typography>
+
+            <Typography variant="body2" color="text.secondary" fontFamily="Your-Font-Here" fontSize="1rem">
+              <Typography variant="h6" component="span" color="primary" fontWeight="bold">
+                Price:
+              </Typography>
+              <Typography component="span">
+                {product.commonAttributes.price}$
+              </Typography>
+            </Typography>
+
+            {product.categoryAttributes &&
+              Object.entries(product.categoryAttributes).map(
+                ([key, value]) => (
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    key={key}
+                  >
+                    <strong>{`${key}`}</strong>: {`${value}`}
+                  </Typography>
+                )
+              )}
           </CardContent>
 
           <CardActions>
-            <Button onClick={() => addToCart()} size="small">
-              Add to cart
+            <Button
+              onClick={addToCart}
+              size="small"
+              variant="contained"
+              color="primary"
+              startIcon={
+                <Badge >
+                  <ShoppingCartIcon />
+                </Badge>
+              }
+            >
+              Add to Cart
             </Button>
 
-            <Button size="small" onClick={addToCompare}>
+            <Button
+              onClick={addToCompare}
+              size="small"
+              variant="contained"
+              color="secondary"
+
+              startIcon={
+                <Badge >
+                  <CompareArrowsIcon />              
+                      </Badge>
+              }>
+
+
               Compare
             </Button>
-            <Button size="small" onClick={() => { navigate("/Map") }}>
-              Available at these stores:
-            </Button>
 
+            <Button
+              onClick={() => navigate("/Map")}
+              size="small"
+              variant="contained"
+              color="primary"
+
+              startIcon={
+                <Badge >
+                  <LocationOnIcon />
+                </Badge>
+              }>
+
+              Available at These Stores
+            </Button>
           </CardActions>
         </Card>
       )}
