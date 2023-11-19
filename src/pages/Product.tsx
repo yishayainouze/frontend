@@ -52,21 +52,27 @@ export default function Product() {
         <Card
           sx={{
             width: "100%",
-            maxWidth: "800px",
+            maxWidth: { xs: "100%", sm: "800px" },
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           }}
         >
           <CardMedia
             component="img"
-            height="300"
             image={product.commonAttributes.imageURL}
             alt={product.name}
             sx={{
               objectFit: "cover",
-              borderRadius: "8px",
+              borderRadius: { xs: "8px 8px 0 0", sm: "8px" },
             }}
           />
-          <CardContent>
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "16px",
+            }}
+          >
             <Typography gutterBottom variant="h5" component="div">
               <Typography variant="h5" component="span" fontFamily="Your-Font-Here" color="primary" fontWeight="bold">
                 {product.name}
@@ -74,7 +80,7 @@ export default function Product() {
             </Typography>
 
             <Typography variant="body2" color="text.secondary" fontFamily="Your-Font-Here">
-              <Typography component="span" fontSize="1rem">
+              <Typography component="span" fontSize={{ xs: "0.875rem", sm: "1rem" }}>
                 {product.commonAttributes.description}
               </Typography>
             </Typography>
@@ -89,17 +95,11 @@ export default function Product() {
             </Typography>
 
             {product.categoryAttributes &&
-              Object.entries(product.categoryAttributes).map(
-                ([key, value]) => (
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    key={key}
-                  >
-                    <strong>{`${key}`}</strong>: {`${value}`}
-                  </Typography>
-                )
-              )}
+              Object.entries(product.categoryAttributes).map(([key, value]) => (
+                <Typography variant="body2" color="text.secondary" key={key} textAlign="center">
+                  <strong>{`${key}`}</strong>: {`${value}`}
+                </Typography>
+              ))}
           </CardContent>
 
           <CardActions>
@@ -109,7 +109,7 @@ export default function Product() {
               variant="contained"
               color="primary"
               startIcon={
-                <Badge >
+                <Badge>
                   <ShoppingCartIcon />
                 </Badge>
               }
@@ -122,14 +122,12 @@ export default function Product() {
               size="small"
               variant="contained"
               color="secondary"
-
               startIcon={
-                <Badge >
-                  <CompareArrowsIcon />              
-                      </Badge>
-              }>
-
-
+                <Badge>
+                  <CompareArrowsIcon />
+                </Badge>
+              }
+            >
               Compare
             </Button>
 
@@ -138,13 +136,12 @@ export default function Product() {
               size="small"
               variant="contained"
               color="primary"
-
               startIcon={
-                <Badge >
+                <Badge>
                   <LocationOnIcon />
                 </Badge>
-              }>
-
+              }
+            >
               Available at These Stores
             </Button>
           </CardActions>
