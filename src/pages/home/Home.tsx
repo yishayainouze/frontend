@@ -58,7 +58,7 @@ const Home = () => {
         <div
           style={{
             width: "80%",
-            height: "10vh",
+            height: "13vh",
             background: "#BDE0C0", // Gradient blue tone
             margin: "1.5rem auto", // Centered horizontally
             borderRadius: "20px", // Rounded corners
@@ -77,18 +77,19 @@ const Home = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              flexWrap: "wrap", // Allow items to wrap
+              flexWrap: "wrap",
             }}
           >
-            <h2 style={{ color: "#333", margin: "0 1rem" }}>
+            <h2 style={{ color: "#2A4D69", fontSize: "1.5rem", margin: "0" }}>
               Popular Categories:
             </h2>
             <div
               style={{
-                width: "30vw",
+                width: "50vw",
                 display: "flex",
                 justifyContent: "space-around",
                 alignItems: "center",
+                marginLeft: "auto",
               }}
             >
               {categories &&
@@ -96,7 +97,19 @@ const Home = () => {
                   return (
                     <div
                       style={{
-                        fontSize: "1.3rem",
+                        color: "#2A4D69",
+                        backgroundColor: "#E6F2E9",
+                        fontSize: "1.1rem",
+                        margin: "6px",
+                        minWidth: "160px",
+                        whiteSpace: "nowrap",
+                        borderRadius: "8px",
+                        padding: "8px 16px",
+                        boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.1)",
+                        transition: "background-color 0.3s ease-in-out",
+                        display: "inline-flex",
+                        justifyContent: "center",
+                        alignItems: "center",
                       }}
                       key={Date.now() * Math.random()}
                     >
@@ -106,66 +119,61 @@ const Home = () => {
                 })}
             </div>
           </div>
+
+
+
         </div>
       </div>
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "6rem",
-        }}
-      >
-        <div
-          style={{
-            WebkitBoxShadow:
-              "-10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0)",
-            boxShadow:
-              "-10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0)",
-            width: "40vw",
-            background: "#8FBC8F", // גוון אפור כהה יותר
-            height: "4rem",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: "10px", // רינועים עגולים
-            color: "#333", // צבע טקסט שחור כהה
-          }}
-        >
-          <h2>
-            Popular Product:
-            {topProducts ? (
-              <span
-                style={
-                  {
-                    // textShadow: "0 -1px 2px #FFF, 0 -1px 4px #ff0, 0 -5px 10px #ff8000, 0 -9px 20px #F00"
-                  }
-                }
-              >
-                {" " + topProducts[0]?.name}
-              </span>
-            ) : (
-              "     "
-            )}
-          </h2>
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "6rem",
+  }}
+>
+  <div
+    style={{
+      width: "65vw",
+      background: "#D3E0EA", // גוון תכלת עדין
+      height: "5rem",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: "10px",
+      color: "#333",
+      padding: "10px",
+    }}
+  >
+   <h2 style={{ fontSize: "1.4rem", margin: "0 10px", color: "#0A3D62", textShadow: "1px 1px 2px #000" }}>
+  Popular Product:
+</h2>
 
-          <br />
-          <img
-            src={topProducts[0]?.commonAttributes.imageURL}
-            alt="top"
-            height="45px"
-            width="45px"
-            style={{
-              margin: "15px",
-              border: "2px solid #FFFFFF", // White border for contrast
-              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.15)", // Soft shadow for depth
-              padding: "3px", // Small padding to create a layer effect
-              backgroundColor: "#FFFFFF", // White background for the image
-              borderRadius: "10px", // Rounded corners
-            }}
-          />
-        </div>
-      </div>
+    {topProducts ? (
+      <h3 style={{ fontSize: "1.2rem", color: "#333", marginLeft: "10px" }}>
+        {" " + topProducts[0]?.name}
+      </h3>
+    ) : (
+      "Loading..."
+    )}
+    <img
+      src={topProducts[0]?.commonAttributes.imageURL}
+      alt="Top Product"
+      height="45px"
+      width="45px"
+      style={{
+        margin: "15px",
+        border: "2px solid #FFFFFF",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.15)",
+        padding: "3px",
+        backgroundColor: "#FFFFFF",
+        borderRadius: "10px",
+      }}
+    />
+  </div>
+</div>
+
+
       <Box
         sx={{
           pt: 8,
