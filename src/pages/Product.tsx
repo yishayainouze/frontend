@@ -8,6 +8,10 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Badge from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 
 export default function Product() {
   const navigate = useNavigate();
@@ -44,8 +48,6 @@ export default function Product() {
         background: "#F0F0F0",
       }}
     >
-
-
       {product?.commonAttributes && (
         <Card
           sx={{
@@ -60,35 +62,31 @@ export default function Product() {
             image={product.commonAttributes.imageURL}
             alt={product.name}
             sx={{
-              objectFit: "cover", // התמונה תתאים את עצמה לגודל בצורה מלאה
-              borderRadius: "8px", // פינות מעוגלות
+              objectFit: "cover",
+              borderRadius: "8px",
             }}
           />
           <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              <Typography variant="h5" component="span" fontFamily="Your-Font-Here" color="primary" fontWeight="bold">
+                {product.name}
+              </Typography>
+            </Typography>
 
-          <Typography gutterBottom variant="h5" component="div">
-  <Typography variant="h5" component="span" fontFamily="Your-Font-Here" color="primary" fontWeight="bold">
-    {product.name}
-  </Typography>
-</Typography>
-
-<Typography variant="body2" color="text.secondary" fontFamily="Your-Font-Here">
-  <Typography component="span" fontSize="1rem" >
-    {product.commonAttributes.description}
-  </Typography>
-</Typography>
+            <Typography variant="body2" color="text.secondary" fontFamily="Your-Font-Here">
+              <Typography component="span" fontSize="1rem">
+                {product.commonAttributes.description}
+              </Typography>
+            </Typography>
 
             <Typography variant="body2" color="text.secondary" fontFamily="Your-Font-Here" fontSize="1rem">
-  <Typography variant="h6" component="span" color="primary" fontWeight="bold">
-    Price:
-  </Typography>
-  <Typography component="span">
-    {product.commonAttributes.price}$
-  </Typography>
-</Typography>
-
-
-
+              <Typography variant="h6" component="span" color="primary" fontWeight="bold">
+                Price:
+              </Typography>
+              <Typography component="span">
+                {product.commonAttributes.price}$
+              </Typography>
+            </Typography>
 
             {product.categoryAttributes &&
               Object.entries(product.categoryAttributes).map(
@@ -110,23 +108,43 @@ export default function Product() {
               size="small"
               variant="contained"
               color="primary"
+              startIcon={
+                <Badge >
+                  <ShoppingCartIcon />
+                </Badge>
+              }
             >
               Add to Cart
             </Button>
+
             <Button
               onClick={addToCompare}
               size="small"
               variant="contained"
               color="secondary"
-            >
+
+              startIcon={
+                <Badge >
+                  <CompareArrowsIcon />              
+                      </Badge>
+              }>
+
+
               Compare
             </Button>
+
             <Button
               onClick={() => navigate("/Map")}
               size="small"
               variant="contained"
               color="primary"
-            >
+
+              startIcon={
+                <Badge >
+                  <LocationOnIcon />
+                </Badge>
+              }>
+
               Available at These Stores
             </Button>
           </CardActions>
