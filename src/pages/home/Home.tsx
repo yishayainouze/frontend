@@ -14,27 +14,20 @@ import _ from "lodash";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const data = useSelector(
-  //   (state: { global: GlobalState }) => state.global.products
-  // );
-  // console.log(data);
-
-  //state-filter
 
   const { data: categories, error } = useGetCategoriesQuery() || []; //categories
   const { data: products } = useGetProductsQuery({}) || []; //products
   if (error) {
-    // Handle the error, e.g., display an error message
     return <div>Error loading categories</div>;
   }
 
   //filter
   const topCategories = categories
-    ? _.sortBy(categories, "numberOfClicks").slice(0, 3)
+    ? _.sortBy(categories, "numberOfClicks").reverse().slice(0, 3)
     : [];
 
   const topProducts = products
-    ? _.sortBy(products, "numberOfClicks").slice(0, 1)
+    ? _.sortBy(products, "numberOfClicks").reverse().slice(0, 1)
     : [];
 
   return (
@@ -46,55 +39,49 @@ const Home = () => {
           alignItems: "center",
         }}
       >
-
         <div
           style={{
-            width: '80%',
-            height: '10vh',
-            background: '#BDE0C0', // Gradient blue tone
-            margin: '1.5rem auto', // Centered horizontally
-            borderRadius: '20px', // Rounded corners
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Subtle shadow
-            display: 'flex',
-            justifyContent: 'center', // Center content horizontally
-            alignItems: 'center', // Center content vertically
-            padding: '1rem', // Internal spacing
-            color: '#ffffff', // Text color
-            fontSize: '1.2rem', // Text size
-            textShadow: '1px 1px 2px #000', // Text shadow for contrast
+            width: "80%",
+            height: "10vh",
+            background: "#BDE0C0", // Gradient blue tone
+            margin: "1.5rem auto", // Centered horizontally
+            borderRadius: "20px", // Rounded corners
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Subtle shadow
+            display: "flex",
+            justifyContent: "center", // Center content horizontally
+            alignItems: "center", // Center content vertically
+            padding: "1rem", // Internal spacing
+            color: "#333", // Text color
+            fontSize: "1.2rem", // Text size
+            textShadow: "1px 1px 2px #000", // Text shadow for contrast
           }}
         >
           <div
             style={{
               display: "flex",
-              justifyContent: "space-around",
+              justifyContent: "space-between",
               alignItems: "center",
-              textAlign: "center",
-              flexWrap: 'wrap', // Allow items to wrap
-
+              flexWrap: "wrap", // Allow items to wrap
             }}
           >
-            <h2 style={{ color: '#fff', margin: '0 1rem' }}>Popular Categories:</h2>
-            {categories &&
-              topCategories?.map((c: any) => {
-                return (
-                  <div
-                    style={{
-                      height: "10vh",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      lineHeight: "10vh", // Matching line height with the container's height
-                      padding: '0.5rem',
-                      margin: '0.5rem',
-                      maxWidth: '170px',
-                    }}
-                    key={Date.now() * Math.random()}
-                  >
-                    {c.category}
-                  </div>
-                );
-              })}
+            <h2 style={{ color: "#333", margin: "0 1rem" }}>
+              Popular Categories:
+            </h2>
+            <div style={{ width: "30vw", display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+              {categories &&
+                topCategories?.map((c: any) => {
+                  return (
+                    <div
+                      style={{
+                        fontSize: "1.3rem",
+                      }}
+                      key={Date.now() * Math.random()}
+                    >
+                      {c.category}
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </div>
       </div>
@@ -108,47 +95,52 @@ const Home = () => {
       >
         <div
           style={{
-            WebkitBoxShadow: "-10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0)",
-            boxShadow: "-10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0)",
-            width: '40vw',
-            background: '#8FBC8F', // גוון אפור כהה יותר
-            height: '4rem',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: '10px', // רינועים עגולים
-            color: '#333', // צבע טקסט שחור כהה
+            WebkitBoxShadow:
+              "-10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0)",
+            boxShadow:
+              "-10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0)",
+            width: "40vw",
+            background: "#8FBC8F", // גוון אפור כהה יותר
+            height: "4rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "10px", // רינועים עגולים
+            color: "#333", // צבע טקסט שחור כהה
           }}
         >
           <h2>
             Popular Product:
-            {topProducts ?
-              <span style={{
-                // textShadow: "0 -1px 2px #FFF, 0 -1px 4px #ff0, 0 -5px 10px #ff8000, 0 -9px 20px #F00"
-              }}>
+            {topProducts ? (
+              <span
+                style={
+                  {
+                    // textShadow: "0 -1px 2px #FFF, 0 -1px 4px #ff0, 0 -5px 10px #ff8000, 0 -9px 20px #F00"
+                  }
+                }
+              >
                 {" " + topProducts[0]?.name}
               </span>
-              : "     "
-            }
+            ) : (
+              "     "
+            )}
           </h2>
 
           <br />
           <img
-  src={topProducts[0]?.commonAttributes.imageURL}
-  alt="top"
-  height="45px"
-  width="45px"
-  style={{
-    margin: '15px',
-    border: '2px solid #FFFFFF', // White border for contrast
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.15)', // Soft shadow for depth
-    padding: '3px', // Small padding to create a layer effect
-    backgroundColor: '#FFFFFF', // White background for the image
-    borderRadius: '10px', // Rounded corners
-  }}
-/>
-
-
+            src={topProducts[0]?.commonAttributes.imageURL}
+            alt="top"
+            height="45px"
+            width="45px"
+            style={{
+              margin: "15px",
+              border: "2px solid #FFFFFF", // White border for contrast
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.15)", // Soft shadow for depth
+              padding: "3px", // Small padding to create a layer effect
+              backgroundColor: "#FFFFFF", // White background for the image
+              borderRadius: "10px", // Rounded corners
+            }}
+          />
         </div>
       </div>
       <Box
