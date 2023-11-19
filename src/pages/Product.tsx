@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobalState, setCart, setCompare } from "../state";
-import { useGetProductQuery, useGetUserQuery } from "../state/api";
+import { useGetProductQuery } from "../state/api";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -17,10 +17,6 @@ export default function Product() {
   );
 
   const { data: product } = useGetProductQuery(productId);
-  const userId = useSelector(
-    (state: { global: GlobalState }) => state.global.userId
-  );
-  const user = useGetUserQuery(userId);
 
 
   // const getLocalCart = () => {

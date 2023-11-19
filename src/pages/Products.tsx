@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+
 import { GlobalState, Product, setCompare, setProductId } from "../state";
+
 import {
   Box,
   Container,
@@ -21,9 +23,6 @@ import { TextField } from "@mui/material";
 const Products = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const compare = useSelector(
-    (state: { global: GlobalState }) => state.global.compare
-  );
   const curCategory = useSelector(
     (state: { global: GlobalState }) => state.global.category
   );
@@ -104,6 +103,7 @@ const Products = () => {
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)'
           }}
         >
+
           {curCategory}
         </Typography>
       </Container>
@@ -161,6 +161,7 @@ const Products = () => {
     </Button>
   </Box>
 {/* </Box> */}
+
 
 
 

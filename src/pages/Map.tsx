@@ -4,7 +4,6 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import Overlay from 'ol/Overlay';
-import { defaults as defaultControls } from 'ol/control';
 import { defaults as defaultInteractions } from 'ol/interaction';
 import { fromLonLat } from 'ol/proj';
 import Popover from '@mui/material/Popover';
@@ -55,10 +54,10 @@ const IsraelMap: React.FC = () => {
       controls: [], // Empty array to remove all default controls
       interactions: defaultInteractions().extend([]),
     });
-    markers.forEach((marker, index) => {
+    markers.forEach((marker) => {
       const overlay = new Overlay({
         position: fromLonLat(marker.position),
-        element: createMarkerElement(index),
+        element: createMarkerElement(),
       });
       map.addOverlay(overlay);
       overlay.getElement()?.addEventListener('click', (event:any) => {
@@ -69,7 +68,7 @@ const IsraelMap: React.FC = () => {
       map.setTarget('');
     };
   }, []);
-  const createMarkerElement = (index: number) => {
+  const createMarkerElement = () => {
     const markerElement = document.createElement('div');
     markerElement.innerHTML = '<img src="https://cdn-icons-png.flaticon.com/256/2981/2981011.png" alt="Marker" width="32" height="32" />';
     markerElement.style.position = 'relative';

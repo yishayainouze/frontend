@@ -97,7 +97,6 @@ export default function Header() {
   if (storedUserData) {
     // Parse the stored JSON data
     const userData = JSON.parse(storedUserData);
-    const { name } = userData;
     // Now you can use the user data as needed
     console.log("User data from localStorage:", userData);
   } else {
