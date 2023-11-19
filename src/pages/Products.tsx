@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+
 import { GlobalState, Product, setProductId } from "../state";
 import {
   Box,
@@ -104,6 +105,7 @@ const Products = () => {
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)'
           }}
         >
+
           {curCategory}
         </Typography>
       </Container>
@@ -161,6 +163,7 @@ const Products = () => {
     </Button>
   </Box>
 {/* </Box> */}
+
 
 
 
