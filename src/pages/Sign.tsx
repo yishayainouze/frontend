@@ -15,11 +15,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Popover from "@mui/material/Popover";
 interface SignUpModalProps {
-  open: boolean;
   onSignUpSuccess: (userData: any) => void;
 }
 
-const SignUpModal: React.FC<SignUpModalProps> = () => {
+const SignUpModal: React.FC<SignUpModalProps> = ({onSignUpSuccess}) => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [open, setOpen] = useState(false);
@@ -61,10 +60,10 @@ const SignUpModal: React.FC<SignUpModalProps> = () => {
       console.log(response.data);
       // Save user data in local storage
       localStorage.setItem(`userData`, JSON.stringify(response.data.user));
+      onSignUpSuccess(response.data.user);
       console.log("User data saved in localStorage:", response.data.user);
       setOpen(false);
-      // onSSuccess(response.data.user);
-      navigate("/");
+      
     } catch (error) {
       console.error("Error sending data to server:", error);
     }
@@ -80,12 +79,12 @@ const SignUpModal: React.FC<SignUpModalProps> = () => {
   color="inherit"
   onClick={handleOpen}
   style={{
-    background: "linear-gradient(to bottom, #5C6BC0, #3949AB)", // גווני כחול שונים
+    background: "linear-gradient(to bottom, #5C6BC0, #3949AB)", 
     borderRadius: "5px",
     padding: "10px 20px",
     color: "white",
     marginRight: "16px",
-    border: "1px solid #5C6BC0", // גבול כחול מתאים
+    border: "1px solid #5C6BC0", 
     cursor: "pointer",
     transition: "background 0.3s ease, transform 0.3s ease",
     textShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)",

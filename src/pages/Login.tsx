@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -26,9 +26,12 @@ const style = {
   p: 4,
 };
 
-const Login = (onLoginSuccess: any ) => {
+interface LoginProps {
+  onLoginSuccess: (userData: any) => void;
+}
+const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -58,7 +61,7 @@ const Login = (onLoginSuccess: any ) => {
         // Update the user state in the Header component
         onLoginSuccess(response.data.user);
         console.log("User data saved in localStorage:", response.data.user);
-        navigate("/");
+        // navigate("/");
       }
     } catch (error) {
       console.error("Error sending data to server:", error);
