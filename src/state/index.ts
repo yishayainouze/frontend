@@ -433,7 +433,46 @@ const initialState: GlobalState = {
   category: "",
   productId: "",
   compare: [],
-  cart: [],
+  cart: [
+    {
+      _id: {
+        $oid: "65508a253df12112f47734e8",
+      },
+      id: 7,
+      name: "Gaming Console",
+      category: "Gaming",
+      commonAttributes: {
+        price: 399.99,
+        manufacturer: "GameBox",
+        description:
+          "Next-generation gaming console with stunning graphics and an immersive gaming experience.",
+        imageURL: "https://example.com/gaming-console.jpg",
+      },
+      categoryAttributes: {
+        storage: "1TB",
+        resolution: "4K HDR",
+      },
+    },
+    {
+      _id: {
+        $oid: "65508ad73df12112f47734ea",
+      },
+      id: 8,
+      name: "OLED Television",
+      category: "Televisions",
+      commonAttributes: {
+        price: 1500,
+        manufacturer: "ClearView",
+        description:
+          "Stunning OLED television with deep blacks and vibrant colors.",
+        imageURL: "https://example.com/oled-television.jpg",
+      },
+      categoryAttributes: {
+        resolution: "3840x2160 pixels",
+        screen_size: "65 inches",
+      },
+    },
+  ],
 };
 
 export const globalSlice = createSlice({
