@@ -20,8 +20,27 @@ export default function Footer() {
       <Container maxWidth="lg">
         <Grid container spacing={5}>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography
+              variant="h6"
+              color="text.primary"
+              gutterBottom
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "bold",
+                fontSize: "1.25rem",
+                color: "#333", // Adjust the color as needed
+                marginBottom: "10px"
+              }}
+            >
               About Us
+              <img
+                src="https://cyber-alumni.org/_next/static/media/prisma.ace4b0ff.svg"
+                alt="idf"
+                height="40px"
+                width="40px"
+                style={{ marginLeft: "10px" }}
+              />
             </Typography>
             <Typography variant="body2" color="text.secondary">
               We work in the Israel Defense Forces and this is our project, hope you enjoyed!
@@ -38,7 +57,13 @@ export default function Footer() {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              fontSize="1.25rem"
+              color="#333" // Use this color or replace with "text.primary" if using a theme
+              gutterBottom
+            >
               Contact Us
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -52,8 +77,14 @@ export default function Footer() {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
-              Follow Us
+          <Typography
+              variant="h6"
+              fontWeight="bold"
+              fontSize="1.25rem"
+              color="#333" // Use this color or replace with "text.primary" if using a theme
+              gutterBottom
+            >
+                            Follow Us
             </Typography>
             <Link href="https://www.facebook.com/idfonline/" color="inherit">
               <Facebook />
@@ -73,8 +104,8 @@ export default function Footer() {
         <Box mt={5}>
           <Typography variant="body2" color="text.secondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" href="https://your-website.com/">
-              Your Website
+            <Link color="inherit" href="https://www.idf.il/">
+              IDF Website
             </Link>{" "}
             {new Date().getFullYear()}
             {"."}
