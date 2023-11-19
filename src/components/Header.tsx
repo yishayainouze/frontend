@@ -70,17 +70,19 @@ export default function Header() {
   const isMenuOpen = Boolean(anchorEl);
   const [signUpModalOpen, setSignUpModalOpen] = React.useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
   const storedUserData = localStorage.getItem("userData");
   const navigate = useNavigate();
 
   const handleSignUpSuccess = (userData: any) => {
     setSignUpModalOpen(false); // Close the SignUpModal
     setUserLocalStorageData(userData); // Update the user data in the header
+    console.log(userData);
   };
 
   const handleLoginSuccess = (userData: any) => {
     setUserLocalStorageData(userData);
+    // localStorage.setItem(`userData`, JSON.stringify(userData));
+
   };
 
   React.useEffect(() => {
@@ -123,6 +125,7 @@ export default function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem(`userData`);
+    setUserLocalStorageData(null);
   };
 
   const menuId = "primary-search-account-menu";
@@ -189,7 +192,7 @@ export default function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-<AppBar position="static" sx={{ backgroundColor: ' #455A64' }}>
+      <AppBar position="static" sx={{ backgroundColor: " #455A64" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -217,7 +220,7 @@ export default function Header() {
 
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <SignUpModal
-              open={signUpModalOpen}
+              // open={signUpModalOpen}
               onSignUpSuccess={handleSignUpSuccess}
             />
             <Login onLoginSuccess={handleLoginSuccess} />
@@ -231,7 +234,7 @@ export default function Header() {
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-           
+
             <IconButton
               size="large"
               edge="end"
@@ -268,25 +271,22 @@ export default function Header() {
             </IconButton>
           </Box>
           <Button
-  color="inherit"
-  onClick={handleLogout}
-  style={{
-    marginLeft: "20px",
-    backgroundColor: "#E0E0E0", // צבע רקע ניטרלי
-    color: "#455A64", // צבע טקסט שמתאים לצבע העמוד
-    borderRadius: "5px", // רינועים מעטים
-    padding: "5px 10px", // מרווחים פנימה
-    border: "1px solid #B0BEC5", // גבול מתאים
-    fontWeight: "bold", // משקל טקסט
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // צללית עדינה
-    transition: "background-color 0.3s ease, box-shadow 0.3s ease",
-    
-  }}
->
-  Sign Out
-</Button>
-
-
+            color="inherit"
+            onClick={handleLogout}
+            style={{
+              marginLeft: "20px",
+              backgroundColor: "#E0E0E0", // צבע רקע ניטרלי
+              color: "#455A64", // צבע טקסט שמתאים לצבע העמוד
+              borderRadius: "5px", // רינועים מעטים
+              padding: "5px 10px", // מרווחים פנימה
+              border: "1px solid #B0BEC5", // גבול מתאים
+              fontWeight: "bold", // משקל טקסט
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // צללית עדינה
+              transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+            }}
+          >
+            Sign Out
+          </Button>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
