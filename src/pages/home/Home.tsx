@@ -10,6 +10,7 @@ import "./Home.css";
 import { useGetCategoriesQuery, useGetProductsQuery } from "../../state/api";
 import { setCategory } from "../../state";
 import _ from "lodash";
+import axios from "axios";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -20,6 +21,21 @@ const Home = () => {
   if (error) {
     return <div>Error loading categories</div>;
   }
+
+  const addClick = async (cat: any) => {
+    try {
+      console.log(cat);
+      let temp = { ...cat, numberOfClicks: cat?.numberOfClicks + 1 };
+      console.log(temp);
+      const res = await axios.put(
+        `https://server-tpja.onrender.com/api/categories/${cat._id}`,
+        temp
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //filter
   const topCategories = categories
@@ -67,7 +83,14 @@ const Home = () => {
             <h2 style={{ color: "#333", margin: "0 1rem" }}>
               Popular Categories:
             </h2>
-            <div style={{ width: "30vw", display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+            <div
+              style={{
+                width: "30vw",
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
               {categories &&
                 topCategories?.map((c: any) => {
                   return (
@@ -171,10 +194,9 @@ const Home = () => {
                   sm={3}
                   sx={{ marginX: "15px", marginY: "15px" }}
                 >
-                  {" "}
-                  {/* הגדרת ארבע תמונות בכל שורה */}
                   <div
                     onClick={() => {
+                      addClick(card);
                       dispatch(setCategory(card.category));
                       navigate("/products");
                     }}
