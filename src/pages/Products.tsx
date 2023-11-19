@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { GlobalState, Product, setCompare, setProductId } from "../state";
+import { GlobalState, Product, setProductId } from "../state";
 import {
   Box,
   Container,
@@ -21,9 +21,9 @@ import { TextField } from "@mui/material";
 const Products = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const compare = useSelector(
-    (state: { global: GlobalState }) => state.global.compare
-  );
+  // const compare = useSelector(
+  //   (state: { global: GlobalState }) => state.global.compare
+  // );
   const curCategory = useSelector(
     (state: { global: GlobalState }) => state.global.category
   );
@@ -169,7 +169,7 @@ const Products = () => {
         {/* Products Grid */}
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
-            {products && products.map((card: Product, i: number) => (
+            {products && products.map((card: Product) => (
               <Grid item key={card.id} xs={12} sm={6} md={4}>
                 <Card sx={{ maxWidth: 345 }}>
                   <CardMedia
